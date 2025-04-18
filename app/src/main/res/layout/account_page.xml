@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/Account"
+        android:layout_width="153dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:text="Accounts"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/AddAccountbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/AddAccountbtn"
+        android:layout_width="184dp"
+        android:layout_height="48dp"
+        android:text="Add Account"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Account" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

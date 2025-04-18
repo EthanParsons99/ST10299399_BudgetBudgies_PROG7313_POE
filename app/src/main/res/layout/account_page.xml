@@ -27,7 +27,7 @@
             android:id="@+id/AddAccountbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Account" />
+            android:text="+ Add Account" />
 
     </LinearLayout>
 
@@ -68,6 +68,55 @@
         android:text="My Accounts"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/NavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/analyticsbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/analysis" />
+
+        <ImageButton
+            android:id="@+id/progressbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/progress" />
+
+        <ImageButton
+            android:id="@+id/budgetsbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/budgets" />
+
+        <ImageButton
+            android:id="@+id/goalsbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/goals" />
+
+        <ImageButton
+            android:id="@+id/accountbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/accounts" />
+    </LinearLayout>
 
 
 </LinearLayout>

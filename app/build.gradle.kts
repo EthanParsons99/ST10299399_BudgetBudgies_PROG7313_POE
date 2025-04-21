@@ -6,6 +6,7 @@ plugins {
 android {
     namespace = "com.example.budgetbudgies_prog7313_poe"
     compileSdk = 35
+    viewBinding.enable = true
 
     defaultConfig {
         applicationId = "com.example.budgetbudgies_prog7313_poe"

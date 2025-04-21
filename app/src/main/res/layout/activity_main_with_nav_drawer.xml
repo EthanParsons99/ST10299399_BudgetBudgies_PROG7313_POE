@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_layout"
+        app:menu="@menu/navigation_menu" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/nav_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:layout_marginBottom="416dp"
+            android:text="Main Page " />
+
+        <LinearLayout
+            android:id="@+id/NavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="673dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/analyticsbtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="Analytics"
+                android:src="@drawable/analysis" />
+
+            <ImageButton
+                android:id="@+id/progressbtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="Progress"
+                android:src="@drawable/progress" />
+
+            <ImageButton
+                android:id="@+id/budgetsbtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="Budget"
+                android:src="@drawable/budgets" />
+
+            <ImageButton
+                android:id="@+id/goalsbtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="Goals"
+                android:src="@drawable/goals" />
+
+            <ImageButton
+                android:id="@+id/accountbtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="Account"
+                android:src="@drawable/accounts" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

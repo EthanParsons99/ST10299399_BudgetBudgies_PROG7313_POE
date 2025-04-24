@@ -1,129 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:background="@drawable/gradient_background">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/nav_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:background="#800080"
-        android:title="Add Income or Expenses"
-        android:titleTextColor="#FFFFFF"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/addIncome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center_horizontal">
-
-
-            <RadioGroup
-                android:id="@+id/radioGroupType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioIncome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/smallerbox_green"
-                    android:paddingHorizontal="24dp"
-                    android:paddingVertical="12dp"
-                    android:text="Income"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="16dp"
-                    android:layout_height="wrap_content" />
-
-                <RadioButton
-                    android:id="@+id/radioExpenditure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/smallerbox_red"
-                    android:paddingHorizontal="24dp"
-                    android:paddingVertical="12dp"
-                    android:text="Expenditure"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </RadioGroup>
-
-            <!-- Date -->
-            <EditText
-                android:id="@+id/currentDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/white_textbox"
-                android:hint="dd/mm/yyyy"
-                android:padding="12dp"
-                android:textColor="#000000"
-                android:textColorHint="#888888" />
-
-            <!-- Amount + Currency -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/white_textbox"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <EditText
-                    android:id="@+id/amount"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="Amount"
-                    android:inputType="numberDecimal"
-                    android:padding="8dp"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
-
-                <Spinner
-                    android:id="@+id/spinnerCurrency"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:background="@android:color/transparent" />
-            </LinearLayout>
-
-            <!-- Currency Text -->
-            <TextView
-                android:id="@+id/tvCurrencySelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Selected: ZAR"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <EditText
-        android:id="@+id/editTextText"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name" />
-</LinearLayout>
+        android:gravity="center_horizontal"
+        android:paddingBottom="16dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D4C30B"
+            android:padding="12dp"
+            android:title="ADD INCOME/EXPENSES"
+            android:titleTextColor="#000000" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal">
+            <RadioButton
+                android:id="@+id/radioIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Income"
+                android:background="@drawable/smallerbox_green"
+                android:textColor="#fff"
+                android:padding="12dp" />
+
+            <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioExpenditure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expenses"
+                android:background="@drawable/smallerbox_red"
+                android:textColor="#fff"
+                android:padding="12dp" />
+        </RadioGroup>
+
+
+        <EditText
+            android:id="@+id/currentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/white_textbox"
+            android:hint="dd/mm/yyyy"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerAccount"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/white_textbox"
+            android:spinnerMode="dropdown" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="numberDecimal"
+                android:background="@drawable/white_textbox"
+                android:padding="12dp" />
+
+            <Spinner
+                android:id="@+id/spinnerCurrency"
+                android:layout_width="105dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/white_textbox" />
+        </LinearLayout>
+
+        <!-- Category Spinner -->
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/white_textbox" />
+
+        <!-- Description -->
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/white_textbox"
+            android:hint="Description"
+            android:padding="12dp" />
+
+        <!-- Attach Receipt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/white_textbox"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Attach Receipt"
+                android:textColor="#000" />
+
+            <ImageView
+                android:id="@+id/receiptIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_camera" />
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <TextView
+            android:id="@+id/tvCurrencySelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected Currency" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:textColor="#000"
+            android:backgroundTint="#ADD8E6"
+            android:layout_marginTop="20dp" />
+
+
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DELETE"
+            android:textColor="#000"
+            android:backgroundTint="#FFFFFF"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</ScrollView>

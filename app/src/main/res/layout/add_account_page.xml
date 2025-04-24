@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backtoaccountbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:paddingTop="10dp"
+            android:text="Back" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/accname"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:height="48dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Account Name" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/accamount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_textbox"
+        android:ems="10"
+        android:hint="Amount"
+        android:inputType="number" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/accicon"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_textbox"
+        android:ems="10"
+        android:hint="Choose Icon"
+        android:inputType="text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/acctype"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_textbox"
+        android:ems="10"
+        android:hint="Account type"
+        android:inputType="text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/acccolor"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_textbox"
+        android:ems="10"
+        android:hint="Account Color"
+        android:inputType="text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <EditText
+        android:id="@+id/accnotes"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_textbox"
+        android:ems="10"
+        android:hint="Notes"
+        android:inputType="text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="29dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Account" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+
+</LinearLayout>

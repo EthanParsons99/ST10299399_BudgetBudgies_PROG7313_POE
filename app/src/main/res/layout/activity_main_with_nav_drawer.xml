@@ -41,7 +41,7 @@
             android:id="@+id/NavigationBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="673dp"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal">

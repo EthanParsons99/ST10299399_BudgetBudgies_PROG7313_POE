@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import android.content.Intent
 
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setSupportActionBar(binding.navToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
         var toggleOnOff = ActionBarDrawerToggle(this,
             binding.drawerLayout, binding.navToolbar,
             R.string.navigation_drawer_open,
@@ -41,7 +43,21 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding.navView.bringToFront()
         binding.navView.setNavigationItemSelectedListener(this)
 
+
+        val analyticsBtn = findViewById<ImageButton>(R.id.analyticsbtn)
+        val progressBtn = findViewById<ImageButton>(R.id.progressbtn)
+        val budgetsBtn = findViewById<ImageButton>(R.id.budgetsbtn)
+        val goalsBtn = findViewById<ImageButton>(R.id.goalsbtn)
+        val accountBtn = findViewById<ImageButton>(R.id.accountbtn)
+
+        accountBtn.setOnClickListener {
+            val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
+
+    }
+
     override fun onBackPressed() {
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)

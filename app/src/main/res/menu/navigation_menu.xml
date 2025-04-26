@@ -9,5 +9,8 @@
         <item android:title="Support" />
         <item android:title="Login" />
         <item android:title="Sign Up" />
+        <item
+            android:id="@+id/HomePageLink"
+            android:title="Home Page (Testing Purposes)" />
     </group>
 </menu>

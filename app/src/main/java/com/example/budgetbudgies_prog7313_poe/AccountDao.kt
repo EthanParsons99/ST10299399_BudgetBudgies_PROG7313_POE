@@ -4,6 +4,7 @@ import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Account
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAccount(account: Account): Long

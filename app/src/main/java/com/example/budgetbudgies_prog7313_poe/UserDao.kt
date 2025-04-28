@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.budgetbudgies_prog7313_poe.User
 
+@Dao
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

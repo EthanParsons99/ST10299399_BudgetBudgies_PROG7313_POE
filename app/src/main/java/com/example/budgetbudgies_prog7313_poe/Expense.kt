@@ -11,30 +11,30 @@ import java.util.Date
         ForeignKey(
             entity = User::class,
             parentColumns = ["userid"],
-            childColumns = ["userid"],
+            childColumns = ["userid"], // Links to the 'userid' field below
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Category::class,
             parentColumns = ["categoryid"],
-            childColumns = ["categoryid"],
+            childColumns = ["categoryid"], // Links to the 'categoryid' field below
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Account::class,
             parentColumns = ["accountid"],
-            childColumns = ["accountid"],
+            childColumns = ["accountid"], // *** Links to the NEW 'accountid' field below ***
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
-
 data class Expense(
     @PrimaryKey(autoGenerate = true) val expenseid: Int = 0,
     val amount: Double,
     val date: Date,
     val userid: Int,
-    val categoryid: Int,
+    val categoryid: Int,   // Foreign key for Category table
     val description: String,
-    val photopath: String?
+    val photopath: String?,
+    val accountid: Int
 )

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BudgetBudgies_PROG7313_POE</string>
-    <string name="navigation_drawer_open" translatable="false">Open Navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close Navigation drawer</string>
+    <string name="app_name">YourAppName</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

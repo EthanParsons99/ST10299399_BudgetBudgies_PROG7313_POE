@@ -12,39 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetBudgies_PROG7313_POE"
         tools:targetApi="31">
-
+        <activity
+            android:name=".AddTransactionActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".PlaceholderActivity"
             android:exported="false" />
-
-
-        <activity android:name=".AccountActivity" android:exported="false" />
-        <activity android:name=".AddAccount" android:exported="false" />
-        <activity android:name=".AddIncome" android:exported= "false"/>
-        <activity android:name=".AddCategory" android:exported="false"/>
-        <activity android:name=".CategoryActivity" android:exported="false"/>
-
-
-       
-
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddAccount"
+            android:exported="false" />
+        <activity
+            android:name=".AddIncome"
+            android:exported="false" />
+        <activity
+            android:name=".AddCategory"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

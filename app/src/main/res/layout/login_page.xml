@@ -36,13 +36,12 @@
         android:id="@+id/editTextText"
         android:layout_width="325dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="text"
-        android:background="@color/white"
-        android:hint="Name"
         android:layout_gravity="center"
+        android:background="@color/white"
+        android:ems="10"
         android:gravity="center"
-        />
+        android:hint="Email"
+        android:inputType="text" />
 
     <Space
         android:layout_width="match_parent"

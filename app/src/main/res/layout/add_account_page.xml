@@ -30,9 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:height="48dp"
+        android:background="@drawable/white_textbox"
         android:ems="10"
-        android:inputType="text"
-        android:text="Account Name" />
+        android:hint="Account Name"
+        android:inputType="text" />
 
     <Space
         android:layout_width="match_parent"

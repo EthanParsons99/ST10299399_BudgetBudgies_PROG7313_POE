@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 intent.putExtra(PlaceholderActivity.EXTRA_FEATURE_NAME, "Achievements")
             }
             "Categorties" -> {
-                intent = Intent(this, PlaceholderActivity::class.java)
+                intent = Intent(this, CategoryActivity::class.java)
                 intent.putExtra(PlaceholderActivity.EXTRA_FEATURE_NAME, "Categories")
             }
             "Currency" -> {

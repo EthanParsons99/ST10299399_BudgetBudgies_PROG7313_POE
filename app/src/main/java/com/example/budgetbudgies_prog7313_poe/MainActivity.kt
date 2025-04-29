@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Set up Floating Action Button
     private fun setupFabAddTransaction() {
         fabAddTransaction.setOnClickListener {
-            val intent = Intent(this, AddTransactionActivity::class.java)
+            val intent = Intent(this, AddIncome::class.java)
             startActivityForResult(intent, ADD_TRANSACTION_REQUEST_CODE)
         }
     }

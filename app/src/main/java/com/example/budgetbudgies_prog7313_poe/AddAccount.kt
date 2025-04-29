@@ -78,7 +78,7 @@ class AddAccount : AppCompatActivity() {
                     if (result != -1L) {
                         Log.d("AddAccount", "Account saved! ID: $result")
                         Toast.makeText(this@AddAccount, "Account added!", Toast.LENGTH_SHORT).show()
-                        finish() // Go back to the previous screen
+                        finish()
                     } else {
                         Log.w("AddAccount", "Failed to save account (maybe conflict).")
                         Toast.makeText(this@AddAccount, "Couldn't save account.", Toast.LENGTH_SHORT).show()
@@ -88,7 +88,6 @@ class AddAccount : AppCompatActivity() {
                     Toast.makeText(this@AddAccount, "Error adding account.", Toast.LENGTH_SHORT).show()
                 }
             }
-            // --- ---
         }
 
         cancelButton.setOnClickListener {

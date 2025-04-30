@@ -7,8 +7,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.budgetbudgies_prog7313_poe.AccountDao
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
 import kotlinx.coroutines.launch
 
 class AddAccount : AppCompatActivity() {
@@ -27,7 +25,7 @@ class AddAccount : AppCompatActivity() {
         val accountTypeInput = findViewById<EditText>(R.id.acctype)
         val accountColorInput = findViewById<EditText>(R.id.acccolor)
         val accountNotesInput = findViewById<EditText>(R.id.accnotes)
-        val addButton = findViewById<Button>(R.id.button2)
+        val addButton = findViewById<Button>(R.id.AddNewCatergory)
         val cancelButton = findViewById<Button>(R.id.button3)
         val backButton = findViewById<Button>(R.id.backtoaccountbtn)
 

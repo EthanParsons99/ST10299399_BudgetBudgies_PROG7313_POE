@@ -6,37 +6,32 @@
     android:background="@drawable/gradient_background">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center_horizontal"
         android:paddingBottom="16dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D4C30B"
-            android:padding="12dp"
-            android:title="ADD INCOME/EXPENSES"
-            android:titleTextColor="#000000" />
-
+        <!-- Type Selection -->
         <RadioGroup
             android:id="@+id/radioGroupType"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal">
+            android:layout_marginTop="16dp">
+
             <RadioButton
                 android:id="@+id/radioIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Income"
                 android:background="@drawable/smallerbox_green"
-                android:textColor="#fff"
+                android:textColor="#FFFFFF"
                 android:padding="12dp" />
 
-            <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radioExpenditure"
@@ -44,11 +39,11 @@
                 android:layout_height="wrap_content"
                 android:text="Expenses"
                 android:background="@drawable/smallerbox_red"
-                android:textColor="#fff"
+                android:textColor="#FFFFFF"
                 android:padding="12dp" />
         </RadioGroup>
 
-
+        <!-- Date Input -->
         <EditText
             android:id="@+id/currentDate"
             android:layout_width="match_parent"
@@ -60,35 +55,41 @@
             android:textColor="#000"
             android:textStyle="bold" />
 
+        <!-- Account Spinner -->
         <Spinner
             android:id="@+id/spinnerAccount"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/white_textbox"
             android:spinnerMode="dropdown" />
 
+        <!-- Amount and Currency -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/amount"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_textbox"
                 android:hint="Amount"
                 android:inputType="numberDecimal"
-                android:background="@drawable/white_textbox"
                 android:padding="12dp" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
 
             <Spinner
                 android:id="@+id/spinnerCurrency"
-                android:layout_width="105dp"
+                android:layout_width="100dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="8dp"
                 android:background="@drawable/white_textbox" />
         </LinearLayout>
 
@@ -96,16 +97,15 @@
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:spinnerMode="dropdown"
             android:background="@drawable/white_textbox" />
 
         <!-- Description -->
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/white_textbox"
             android:hint="Description"
@@ -116,9 +116,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
             android:background="@drawable/white_textbox"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
@@ -134,33 +135,32 @@
                 android:src="@android:drawable/ic_menu_camera" />
         </LinearLayout>
 
-        <!-- Buttons -->
+        <!-- Displayed d -->
         <TextView
             android:id="@+id/tvCurrencySelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selected Currency" />
+            android:layout_marginTop="12dp"
+            android:text="Selected Currency"
+            android:textColor="#000" />
 
+        <!-- Buttons for save and delete -->
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="SAVE"
             android:textColor="#000"
-            android:backgroundTint="#ADD8E6"
-            android:layout_marginTop="20dp" />
-
-
+            android:backgroundTint="#ADD8E6" />
 
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="DELETE"
             android:textColor="#000"
-            android:backgroundTint="#FFFFFF"
-            android:layout_marginTop="8dp" />
-
+            android:backgroundTint="#FFFFFF" />
     </LinearLayout>
-
 </ScrollView>

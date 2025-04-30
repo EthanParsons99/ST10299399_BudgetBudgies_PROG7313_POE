@@ -38,8 +38,10 @@
 
         <activity android:name=".AccountActivity" android:exported="false" />
         <activity android:name=".AddAccount" android:exported="false" />
-        <activity android:name=".AddIncome" android:exported="false" />
-
+        <activity android:name=".AddIncome" android:exported= "false"/>
+        <activity android:name=".AddCategory" android:exported="false"/>
+        <activity android:name=".CategoryActivity" android:exported="false"/>
+       
 
     </application>
 

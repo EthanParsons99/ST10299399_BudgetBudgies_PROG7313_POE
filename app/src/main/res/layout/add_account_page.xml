@@ -104,7 +104,7 @@
         android:layout_height="29dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/AddNewCatergory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Account" />

@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 intent = Intent(this, PlaceholderActivity::class.java)
                 intent.putExtra(PlaceholderActivity.EXTRA_FEATURE_NAME, "Support")
             }
+
             "Login" -> {
                 intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

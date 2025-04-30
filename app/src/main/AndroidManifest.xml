@@ -53,6 +53,10 @@
         <activity
             android:name=".GoalsActivity"
             android:exported="false" />
+        <activity
+            android:name=".CreateGoalActivity" />
+        <activity
+            android:name=".EditGoalActivity" />
     </application>
 
 </manifest>

@@ -103,37 +103,9 @@
                 android:background="@drawable/grey_textbox"
                 android:padding="8dp"
                 android:backgroundTint="#DCEBEA"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/ic_salary"
-                    android:contentDescription="Icon" />
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/ic_transport"
-                    android:contentDescription="Icon" />
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/ic_food"
-                    android:contentDescription="Icon" />
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/ic_disability"
-                    android:contentDescription="Icon" />
-            </LinearLayout>
+                android:layout_marginBottom="16dp" />
         </HorizontalScrollView>
+
 
         <!-- Action Buttons -->
         <Button

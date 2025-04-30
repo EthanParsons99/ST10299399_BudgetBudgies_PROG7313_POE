@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.parcelize.Parcelize
-
+//passes the new catgory to the catgory page
 @Parcelize
 data class kCategory(
     val type: String,
@@ -28,7 +28,7 @@ class AddCategory : AppCompatActivity() {
     private lateinit var buttonCancel: Button
     private lateinit var iconContainer: LinearLayout
 
-    private var selectedType: String = "Income"
+    private var selectedType = "Income"
     private var selectedIconResId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,15 +45,16 @@ class AddCategory : AppCompatActivity() {
         // Handle type buttons
         buttonIncome.setOnClickListener {
             selectedType = "Income"
-            buttonIncome.isSelected = true
-            buttonExpense.isSelected = false
+            buttonIncome.setBackgroundColor(getColor(android.R.color.holo_green_dark))
+            buttonExpense.setBackgroundColor(getColor(android.R.color.darker_gray))
         }
 
         buttonExpense.setOnClickListener {
             selectedType = "Expense"
-            buttonIncome.isSelected = false
-            buttonExpense.isSelected = true
+            buttonExpense.setBackgroundColor(getColor(android.R.color.holo_red_dark))
+            buttonIncome.setBackgroundColor(getColor(android.R.color.darker_gray))
         }
+
 
         // Add selectable icons
         val iconList = listOf(

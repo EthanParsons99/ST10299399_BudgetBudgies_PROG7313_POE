@@ -1,102 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".CategoryActivity">
 
+    <!-- Top Bar with Back and Title -->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btn_back"
+            android:src="@drawable/ic_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
+            android:padding="8dp" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_back"
-                android:contentDescription="Back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
 
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Income Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"
+                android:text="Income"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginStart="12dp" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewIncome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+                android:layout_marginVertical="12dp" />
+
+            <!-- Expenses Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expenses"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewExpense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+                android:layout_marginVertical="12dp" />
+
+            <!-- Add New Category Button -->
+            <Button
+                android:id="@+id/btn_add_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="+ Add New Category"
+                android:backgroundTint="#DDDDDD"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp" />
         </LinearLayout>
-
-        <!-- Income Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Income"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="12dp" />
-
-
-        <!-- Expense Title -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="vertical">
-
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Expenses"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp" />
-
-        <!-- Expense Categories -->
-
-        <!-- Add New Category Button -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-
-            <include layout="@layout/item_category" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_add_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_item"
-            android:backgroundTint="#DDDDDD"
-            android:text="+ Add New Category"
-            android:textColor="#000000" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

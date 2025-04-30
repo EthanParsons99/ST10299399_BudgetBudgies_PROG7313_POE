@@ -150,7 +150,11 @@
             android:background="@drawable/gradient_background2"
             android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_transaction" />
+            android:contentDescription="@string/transactions_list_description"
+            android:importantForAccessibility="yes"
+
+        tools:listitem="@layout/item_transaction" />
+
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

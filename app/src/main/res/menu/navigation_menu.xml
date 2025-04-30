@@ -5,11 +5,8 @@
         <item android:title="Achievements {WIP Work in progress}" />
         <item android:title="Categories" />
         <item android:title="Currency {WIP}" />
-        <item android:title="Support {WIP}" />
         <item android:title="Login" />
         <item android:title="Sign Up" />
-        <item
-            android:id="@+id/HomePageLink"
-            android:title="Home Page (Testing Purposes)" />
+        <item android:title="Sign Out"/>
     </group>
 </menu>

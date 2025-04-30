@@ -273,9 +273,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Decide on flags if needed
                 // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
-            "Home Page (Testing Purposes)" -> {
-                Toast.makeText(this, "Already on Home Page", Toast.LENGTH_SHORT).show()
-                intent = null
+            "Sign Out" -> {
+                // Handle logout - Use helper function for clarity and flags
+                SessionManager.clearSession(applicationContext)
+                goToLogin() // This calls finish() and starts LoginActivity
+                intent = null // Prevent double navigation
             }
             else -> {
                 Log.w("SideNav", "Unknown item title: $clickedTitle")

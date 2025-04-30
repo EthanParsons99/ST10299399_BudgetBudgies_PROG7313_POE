@@ -26,6 +26,7 @@ class AddCategory : AppCompatActivity() {
 
     private var selectedType = "Income"
     private var selectedIconResId: Int? = null
+    private var selectedImageView: ImageView? = null
 
     private val iconResIdList = listOf(
         R.drawable.ic_food,
@@ -38,8 +39,6 @@ class AddCategory : AppCompatActivity() {
         R.drawable.ic_gym,
         R.drawable.ic_loan
     )
-
-    private var selectedImageView: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +136,7 @@ class AddCategory : AppCompatActivity() {
                 userid = currentUserId,
                 categoryname = name,
                 categoryType = selectedType,
-                icon = selectedIconResId!! // <- Now using Int for icon
+                icon = selectedIconResId!!
             )
 
             saveCategoryToDb(newDbCategory)

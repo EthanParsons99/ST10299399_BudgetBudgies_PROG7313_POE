@@ -17,7 +17,7 @@ import androidx.room.TypeConverters
         Income::class,
         Goal::class
     ],
-    version = 2, // <-- Incremented from 1
+    version = 3, // <-- Incremented from 1
     exportSchema = false
 )
 @TypeConverters(Convert::class)

@@ -1,4 +1,3 @@
-// --- START CategoryActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.content.Intent
@@ -31,7 +30,6 @@ class CategoryActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             Log.d("CategoryActivity", "Returned from AddCategory, Flow should update list.")
-            // List updates via Flow, no manual add needed here
         }
     }
 
@@ -59,9 +57,7 @@ class CategoryActivity : AppCompatActivity() {
         recyclerViewExpense = findViewById(R.id.recyclerViewExpense)
 
         setupRecyclerViews()
-
         insertDefaultCategoriesIfEmpty()
-
         observeCategories()
 
         addCategoryBtn.setOnClickListener {
@@ -70,7 +66,6 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
-    //adding default categories
     private fun insertDefaultCategoriesIfEmpty() {
         lifecycleScope.launch {
             val existingCategories = categoryDbDao.getUserCategoriesOnce(currentUserId)
@@ -101,7 +96,6 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun observeCategories() {
         lifecycleScope.launch {
-
             categoryDbDao.getUserCategories(currentUserId).collectLatest { categories ->
                 val incomeList = categories.filter { it.categoryType == "Income" }
                 val expenseList = categories.filter { it.categoryType == "Expense" }
@@ -117,7 +111,7 @@ class CategoryActivity : AppCompatActivity() {
     private fun deleteCategory(category: Category) {
         lifecycleScope.launch {
             try {
-                categoryDbDao.deleteCategory(category) // Assumes deleteCategory method exists in DAO
+                categoryDbDao.deleteCategory(category)
                 Toast.makeText(this@CategoryActivity, "Category '${category.categoryname}' deleted", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Log.e("CategoryActivity", "Error deleting category ${category.categoryid}", e)
@@ -136,4 +130,3 @@ class CategoryActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-// --- END CategoryActivity.kt ---

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +13,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
-import com.example.budgetbudgies_prog7313_poe.CategoryDao
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -42,7 +39,7 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.category_page)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -62,13 +59,34 @@ class CategoryActivity : AppCompatActivity() {
         recyclerViewExpense = findViewById(R.id.recyclerViewExpense)
 
         setupRecyclerViews()
+
+        insertDefaultCategoriesIfEmpty()
+
         observeCategories()
 
         addCategoryBtn.setOnClickListener {
             val intent = Intent(this, AddCategory::class.java)
             addCategoryLauncher.launch(intent)
         }
+    }
 
+    //adding default categories
+    private fun insertDefaultCategoriesIfEmpty() {
+        lifecycleScope.launch {
+            val existingCategories = categoryDbDao.getUserCategoriesOnce(currentUserId)
+            if (existingCategories.isEmpty()) {
+                val defaultCategories = listOf(
+                    Category(0, currentUserId, "Salary", "Income", R.drawable.ic_salary),
+                    Category(0, currentUserId, "Food", "Expense", R.drawable.ic_food),
+                    Category(0, currentUserId, "Gift", "Income", R.drawable.ic_cart),
+                    Category(0, currentUserId, "Transport", "Expense", R.drawable.ic_transport)
+                )
+                defaultCategories.forEach {
+                    categoryDbDao.insert(it)
+                }
+                Log.d("CategoryActivity", "Inserted default categories")
+            }
+        }
     }
 
     private fun setupRecyclerViews() {
@@ -83,7 +101,7 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun observeCategories() {
         lifecycleScope.launch {
-            // Assuming Category entity has categoryType: String field
+
             categoryDbDao.getUserCategories(currentUserId).collectLatest { categories ->
                 val incomeList = categories.filter { it.categoryType == "Income" }
                 val expenseList = categories.filter { it.categoryType == "Expense" }

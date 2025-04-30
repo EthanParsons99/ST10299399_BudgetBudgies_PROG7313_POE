@@ -5,17 +5,11 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
-import com.example.budgetbudgies_prog7313_poe.CategoryDao
 import kotlinx.coroutines.launch
 
 class AddCategory : AppCompatActivity() {
@@ -31,29 +25,27 @@ class AddCategory : AppCompatActivity() {
     private lateinit var iconContainer: LinearLayout
 
     private var selectedType = "Income"
-    private var selectedIconResName: String? = null
+    private var selectedIconResId: Int? = null
 
-    // Map Resource IDs to their String names for saving
-    // Ensure these drawables exist!
-    private val iconResIdToNameMap = mapOf(
-        R.drawable.ic_food to "ic_food",
-        R.drawable.ic_transport to "ic_transport",
-        R.drawable.ic_salary to "ic_salary",
-        R.drawable.ic_disability to "ic_disability",
-        R.drawable.ic_cart to "ic_cart",
-        R.drawable.ic_home to "ic_home",
-        R.drawable.ic_heartbeat to "ic_heartbeat",
-        R.drawable.ic_gym to "ic_gym",
-        R.drawable.ic_loan to "ic_loan"
-        // Add more icons used in your app
+    private val iconResIdList = listOf(
+        R.drawable.ic_food,
+        R.drawable.ic_transport,
+        R.drawable.ic_salary,
+        R.drawable.ic_disability,
+        R.drawable.ic_cart,
+        R.drawable.ic_home,
+        R.drawable.ic_heartbeat,
+        R.drawable.ic_gym,
+        R.drawable.ic_loan
     )
+
     private var selectedImageView: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_category)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -78,7 +70,7 @@ class AddCategory : AppCompatActivity() {
         setupTypeButtons()
         setupIcons()
         setupActionButtons()
-        updateTypeSelectionUI() // Set initial button colors
+        updateTypeSelectionUI()
     }
 
     private fun setupTypeButtons() {
@@ -103,7 +95,7 @@ class AddCategory : AppCompatActivity() {
     }
 
     private fun setupIcons() {
-        iconResIdToNameMap.keys.forEach { iconResId ->
+        iconResIdList.forEach { iconResId ->
             val imageView = ImageView(this).apply {
                 setImageResource(iconResId)
                 tag = iconResId
@@ -112,8 +104,7 @@ class AddCategory : AppCompatActivity() {
                 }
                 alpha = 0.5f
                 setOnClickListener {
-                    val clickedResId = it.tag as Int
-                    selectedIconResName = iconResIdToNameMap[clickedResId]
+                    selectedIconResId = iconResId
                     highlightSelectedIcon(this)
                 }
             }
@@ -133,18 +124,22 @@ class AddCategory : AppCompatActivity() {
 
             if (name.isEmpty()) {
                 editTextCategoryName.error = "Category name is needed"
-                editTextCategoryName.requestFocus(); return@setOnClickListener
+                editTextCategoryName.requestFocus()
+                return@setOnClickListener
             }
-            if (selectedIconResName == null) {
-                Toast.makeText(this, "Please select an icon", Toast.LENGTH_SHORT).show(); return@setOnClickListener
+
+            if (selectedIconResId == null) {
+                Toast.makeText(this, "Please select an icon", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             val newDbCategory = Category(
                 userid = currentUserId,
                 categoryname = name,
-                categoryType = selectedType, // Assumes 'categoryType' field exists
-                iconResName = selectedIconResName // Assumes 'iconResName' field exists
+                categoryType = selectedType,
+                icon = selectedIconResId!! // <- Now using Int for icon
             )
+
             saveCategoryToDb(newDbCategory)
         }
 
@@ -165,31 +160,29 @@ class AddCategory : AppCompatActivity() {
                     return@launch
                 }
 
-                val result = categoryDbDao.insert(category) // Ensure DAO has insert method
+                val result = categoryDbDao.insert(category)
                 if (result != -1L) {
                     Log.d("AddCategory", "Category saved! ID: $result")
                     Toast.makeText(this@AddCategory, "Category '${category.categoryname}' added!", Toast.LENGTH_SHORT).show()
-                    setResult(Activity.RESULT_OK) // Indicate success
+                    setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    Log.w("AddCategory", "Failed to save category.")
                     Toast.makeText(this@AddCategory, "Could not save category.", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("AddCategory", "DB error saving category", e)
+                Log.e("AddCategory", "Error saving category", e)
                 Toast.makeText(this@AddCategory, "Error adding category.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
 }
+
 // --- END AddCategory.kt ---

@@ -211,11 +211,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val displayList = mutableListOf<DisplayTransaction>()
                 incomes.mapTo(displayList) { income ->
                     val category = categories[income.categoryid]
-                    DisplayTransaction(id = income.incomeid, type = "Income", description = category?.categoryname ?: "Income", amount = income.amount, date = income.date, categoryName = category?.categoryname, accountName = accounts[income.accountid]?.accountname, iconResName = category?.iconResName, photoPath = null)
+                    DisplayTransaction(id = income.incomeid, type = "Income", description = category?.categoryname ?: "Income", amount = income.amount, date = income.date, categoryName = category?.categoryname, accountName = accounts[income.accountid]?.accountname, icon = category?.icon,photoPath = null)
                 }
                 expenses.mapTo(displayList) { expense ->
                     val category = categories[expense.categoryid]
-                    DisplayTransaction(id = expense.expenseid, type = "Expense", description = expense.description, amount = expense.amount, date = expense.date, categoryName = category?.categoryname, accountName = accounts[expense.accountid]?.accountname, iconResName = category?.iconResName, photoPath = expense.photopath)
+                    DisplayTransaction(id = expense.expenseid, type = "Expense", description = expense.description, amount = expense.amount, date = expense.date, categoryName = category?.categoryname, accountName = accounts[expense.accountid]?.accountname, icon = category?.icon, photoPath = expense.photopath)
                 }
                 displayList.sortByDescending { it.date }
 

@@ -25,7 +25,7 @@ data class Category(
     val categoryname: String,
     // --- Added Fields ---
     val categoryType: String, // "Income" or "Expense"
-    val iconResName: String? // Store drawable resource name as String (e.g., "ic_food")
+    val icon: Int // Store drawable resource name as int (e.g., "ic_food")
     // --- End Added Fields ---
 )
 // --- END Category.kt ---

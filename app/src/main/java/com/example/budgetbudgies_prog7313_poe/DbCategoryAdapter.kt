@@ -27,7 +27,7 @@ class DbCategoryAdapter(
             categoryName.text = category.categoryname
 
             // Set Icon based on stored resource name string
-            val iconResId = getDrawableResourceIdByName(context, category.iconResName)
+            val iconResId = category.icon
             if (iconResId != 0) {
                 iconView.setImageResource(iconResId)
             } else {

@@ -13,6 +13,9 @@ interface CategoryDao {
     @Query ("SELECT * FROM categories WHERE userid = :userId ORDER BY categoryname ASC")
     fun getUserCategories(userId: Int): Flow<List<Category>>
 
+    @Query("SELECT * FROM categories  WHERE userid = :userId")
+    suspend fun getUserCategoriesOnce(userId: Int): List<Category>
+
     @Query("SELECT * FROM categories WHERE userid = :userId ORDER BY categoryname ASC")
     suspend fun getUserCategoriesList(userId: Int): List<Category>
 

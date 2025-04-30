@@ -22,7 +22,7 @@ data class DisplayTransaction(
     val date: Date,
     val categoryName: String?, // Store resolved category name
     val accountName: String?, // Store resolved account name
-    val iconResName: String?, // Store category icon resource name
+    val icon: Int?,   // Store category icon
     val photoPath: String? // Store photo path for expenses
 )
 
@@ -55,7 +55,7 @@ class TransactionAdapter (
             }
 
             // Set Icon
-            val iconResId = getDrawableResourceIdByName(context, transaction.iconResName)
+            val iconResId = transaction.icon ?: R.drawable.ic_food
             if (iconResId != 0) {
                 iconView.setImageResource(iconResId)
             } else {

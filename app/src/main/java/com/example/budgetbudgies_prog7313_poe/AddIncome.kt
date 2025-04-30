@@ -18,7 +18,7 @@ class AddIncome : AppCompatActivity() {
         val tvCurrencySelected = findViewById<TextView>(R.id.tvCurrencySelected)
 
         // Populate account spinner
-        val accountOptions = listOf("FNB", "Absa", "Capitec")
+        val accountOptions = listOf("FNB", "Absa", "Capitec", "TymeBa")
         val accountAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, accountOptions)
         spinnerAccount.adapter = accountAdapter
 

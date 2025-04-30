@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findViewById<ImageButton>(R.id.analyticsbtn)?.setOnClickListener { navigateToPlaceholder("Analytics"); overridePendingTransition(0,0) }
         findViewById<ImageButton>(R.id.progressbtn)?.setOnClickListener { navigateToPlaceholder("Progress Dashboard"); overridePendingTransition(0,0) }
         findViewById<ImageButton>(R.id.budgetsbtn)?.setOnClickListener { Toast.makeText(this, "You're already Home!", Toast.LENGTH_SHORT).show() }
-        findViewById<ImageButton>(R.id.goalsbtn)?.setOnClickListener { navigateToPlaceholder("Goals"); overridePendingTransition(0,0) }
+        findViewById<ImageButton>(R.id.goalsbtn)?.setOnClickListener { startActivity(Intent(this, GoalsActivity::class.java)); overridePendingTransition(0,0) }
         findViewById<ImageButton>(R.id.accountbtn)?.setOnClickListener { startActivity(Intent(this, AccountActivity::class.java)); overridePendingTransition(0,0) }
     }
 

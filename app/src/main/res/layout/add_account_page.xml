@@ -2,122 +2,150 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_background"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Add Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white"
+        android:elevation="4dp"/>
 
-        <Button
-            android:id="@+id/backtoaccountbtn"
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingTop="10dp"
-            android:text="Back" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <!-- Removed top back button as Toolbar provides Up button -->
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/accname"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Account Name"
-        android:inputType="text" />
+            <EditText
+                android:id="@+id/accname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:ems="10"
+                android:hint="Account Name"
+                android:inputType="textCapWords"
+                android:padding="12dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/accamount"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Amount"
-        android:inputType="number" />
+            <EditText
+                android:id="@+id/accamount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:ems="10"
+                android:hint="Starting Balance (e.g., 100.00)"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/accicon"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Choose Icon"
-        android:inputType="text" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Icon / Bank (Optional)" android:layout_marginBottom="4dp"/>
+            <Spinner
+                android:id="@+id/spinnerAccountIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/acctype"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Account type"
-        android:inputType="text" />
+            <EditText
+                android:id="@+id/acctype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:ems="10"
+                android:hint="Account Type (e.g., Savings, Cheque)"
+                android:inputType="textCapWords"
+                android:padding="12dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/acccolor"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Account Color"
-        android:inputType="text" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Display Color (Optional)" android:layout_marginBottom="4dp"/>
+            <Spinner
+                android:id="@+id/spinnerAccountColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
-    <EditText
-        android:id="@+id/accnotes"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/white_textbox"
-        android:ems="10"
-        android:hint="Notes"
-        android:inputType="text" />
+            <EditText
+                android:id="@+id/accnotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:background="@drawable/white_textbox"
+                android:ems="10"
+                android:hint="Notes (Optional)"
+                android:inputType="textCapSentences|textMultiLine"
+                android:gravity="top"
+                android:padding="12dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="29dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
 
-    <Button
-        android:id="@+id/AddNewCatergory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Account" />
+            <Button
+                android:id="@+id/AddNewCatergory"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Account"
+                android:padding="12dp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
+            <Button
+                android:id="@+id/button3"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:padding="12dp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

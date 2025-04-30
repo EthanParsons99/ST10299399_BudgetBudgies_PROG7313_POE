@@ -1,3 +1,4 @@
+// --- START LoginActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.content.Intent
@@ -17,79 +18,81 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetbudgies_prog7313_poe.AppDatabase
-import com.example.budgetbudgies_prog7313_poe.UserDao
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var userDao: UserDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
 
-        userDao = AppDatabase.getDatabase(applicationContext).userDao()
-
-        val emailEditText = findViewById<EditText>(R.id.editTextText)
-        val passwordEditText = findViewById<EditText>(R.id.editTextTextPassword)
-        val loginButton = findViewById<Button>(R.id.button)
-        val textView9 = findViewById<TextView>(R.id.textView9)
-        val textView10 = findViewById<TextView>(R.id.textView10)
-
-        setupClickableText(textView9, "Forgot your password? reset it here", "reset", Color.BLUE) {
-            Toast.makeText(this, "Reset password clicked (Not Implemented)", Toast.LENGTH_SHORT).show()
+        if (SessionManager.isLoggedIn(applicationContext)) {
+            navigateToMain()
+            return
         }
 
-        setupClickableText(textView10, "Not yet registered? register here", "register", Color.BLUE) {
+        val userDao = AppDatabase.getDatabase(applicationContext).userDao()
+
+        val emailInput = findViewById<EditText>(R.id.editTextText)
+        val passwordInput = findViewById<EditText>(R.id.editTextTextPassword)
+        val loginButton = findViewById<Button>(R.id.button)
+        val forgotPasswordText = findViewById<TextView>(R.id.textView9)
+        val registerText = findViewById<TextView>(R.id.textView10)
+
+        setupClickableText(forgotPasswordText, "Forgot your password? reset it here", "reset", Color.BLUE) {
+            Toast.makeText(this, "Password reset isn't ready yet!", Toast.LENGTH_SHORT).show()
+        }
+
+        setupClickableText(registerText, "Not yet registered? register here", "register", Color.BLUE) {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString() // Don't trim password
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString()
 
             if (email.isEmpty()) {
-                emailEditText.error = "Email cannot be empty"
-                emailEditText.requestFocus()
+                emailInput.error = "Need your email here!"
+                emailInput.requestFocus()
                 return@setOnClickListener
             }
             if (password.isEmpty()) {
-                passwordEditText.error = "Password cannot be empty"
-                passwordEditText.requestFocus()
+                passwordInput.error = "Don't forget your password!"
+                passwordInput.requestFocus()
                 return@setOnClickListener
             }
 
             lifecycleScope.launch {
                 try {
-                    val user = userDao.getUserByEmail(email)
+                    val foundUser = userDao.getUserByEmail(email)
 
-                    if (user != null) {
-                        if (user.password == password) {
-                            Log.d("LoginActivity", "Login successful for user ID: ${user.userid}")
-                            Toast.makeText(this@LoginActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
+                    // ** WARNING: Comparing plain password - use hashing in a real app! **
+                    if (foundUser != null && foundUser.password == password) {
+                        Log.d("Login", "Login ok for user ID: ${foundUser.userid}")
+                        Toast.makeText(this@LoginActivity, "Welcome back!", Toast.LENGTH_SHORT).show()
 
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        SessionManager.saveUserId(applicationContext, foundUser.userid)
 
-                            startActivity(intent)
-                            finish()
+                        navigateToMain()
 
-                        } else {
-                            Log.w("LoginActivity", "Login failed: Incorrect password for email $email")
-                            Toast.makeText(this@LoginActivity, "Invalid email or password.", Toast.LENGTH_LONG).show()
-                        }
                     } else {
-                        Log.w("LoginActivity", "Login failed: No user found with email $email")
-                        Toast.makeText(this@LoginActivity, "Invalid email or password.", Toast.LENGTH_LONG).show()
+                        Log.w("Login", "Login failed for email $email")
+                        Toast.makeText(this@LoginActivity, "Hmm, that email or password wasn't right.", Toast.LENGTH_LONG).show()
                     }
-
                 } catch (e: Exception) {
-                    Log.e("LoginActivity", "Error during login database query", e)
-                    Toast.makeText(this@LoginActivity, "Login failed: Database error.", Toast.LENGTH_LONG).show()
+                    Log.e("Login", "DB error on login", e)
+                    Toast.makeText(this@LoginActivity, "Couldn't check details, something went wrong.", Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun setupClickableText(textView: TextView, fullText: String, clickableWord: String, color: Int, onClick: () -> Unit) {
@@ -98,17 +101,14 @@ class LoginActivity : AppCompatActivity() {
         if (start == -1) return
 
         val end = start + clickableWord.length
-
         val clickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                onClick()
-            }
+            override fun onClick(widget: View) { onClick() }
         }
 
         spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
         textView.text = spannableString
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
 }
+// --- END LoginActivity.kt ---

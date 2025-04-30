@@ -6,140 +6,97 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background2">
 
-    <ScrollView
+    <!-- Add Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/NavigationBar"
-        android:layout_alignParentTop="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="80dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/Account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_weight="1"
-                    android:padding="16dp"
-                    android:text="Accounts"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/addAccountbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="+ Add Account" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="151dp"
-                android:layout_height="43dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="Total Balance"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="33dp" />
-
-            <TextView
-                android:id="@+id/totalbalance"
-                android:layout_width="317dp"
-                android:layout_height="89dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/textbox"
-                android:gravity="center|center_horizontal"
-                android:text="0,00 ZAR"
-                android:textColor="#FFEB3B"
-                android:textSize="34sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="28dp" />
-
-            <TextView
-                android:id="@+id/MyAccounts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="My Accounts"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </ScrollView>
-
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white"
+        android:elevation="4dp"
+        android:layout_alignParentTop="true"/>
 
     <LinearLayout
-        android:id="@+id/NavigationBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/analyticsbtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="Analytics"
-            android:src="@drawable/analysis" />
+        <LinearLayout
+            android:id="@+id/header_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
 
-        <ImageButton
-            android:id="@+id/progressbtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="Progress"
-            android:src="@drawable/progress" />
+            <TextView
+                android:id="@+id/Account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Accounts Summary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/budgetsbtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="Budget"
-            android:src="@drawable/budgets" />
+            <Button
+                android:id="@+id/addAccountbtn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Add Account" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/goalsbtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="Goals"
-            android:src="@drawable/goals" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Total Balance"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"/>
 
-        <ImageButton
-            android:id="@+id/accountbtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+        <TextView
+            android:id="@+id/totalbalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="R 0.00"
+            android:textColor="#1FAD41"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/MyAccounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="My Accounts"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Add RecyclerView for account list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/accountsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="Account"
-            android:src="@drawable/accounts" />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            tools:listitem="@layout/item_account" />
+        <!-- You need to create item_account.xml layout -->
+
     </LinearLayout>
 
+    <!-- Removed Bottom Navigation Bar -->
 
 </RelativeLayout>

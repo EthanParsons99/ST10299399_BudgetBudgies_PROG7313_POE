@@ -1,25 +1,27 @@
+// --- START AddCategory.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.parcelize.Parcelize
-//passes the new catgory to the catgory page
-@Parcelize
-data class kCategory(
-    val type: String,
-    val name: String,
-    val iconResId: Int
-) : Parcelable
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.budgetbudgies_prog7313_poe.AppDatabase
+import com.example.budgetbudgies_prog7313_poe.CategoryDao
+import kotlinx.coroutines.launch
 
 class AddCategory : AppCompatActivity() {
+
+    private lateinit var categoryDbDao: CategoryDao
+    private var currentUserId: Int = -1
 
     private lateinit var buttonIncome: Button
     private lateinit var buttonExpense: Button
@@ -29,11 +31,42 @@ class AddCategory : AppCompatActivity() {
     private lateinit var iconContainer: LinearLayout
 
     private var selectedType = "Income"
-    private var selectedIconResId: Int = 0
+    private var selectedIconResName: String? = null
+
+    // Map Resource IDs to their String names for saving
+    // Ensure these drawables exist!
+    private val iconResIdToNameMap = mapOf(
+        R.drawable.ic_food to "ic_food",
+        R.drawable.ic_transport to "ic_transport",
+        R.drawable.ic_salary to "ic_salary",
+        R.drawable.ic_disability to "ic_disability",
+        R.drawable.ic_cart to "ic_cart",
+        R.drawable.ic_home to "ic_home",
+        R.drawable.ic_heartbeat to "ic_heartbeat",
+        R.drawable.ic_gym to "ic_gym",
+        R.drawable.ic_loan to "ic_loan"
+        // Add more icons used in your app
+    )
+    private var selectedImageView: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_category)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = "Add New Category"
+
+        currentUserId = SessionManager.getUserId(applicationContext)
+        if (currentUserId == -1) {
+            Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
+
+        categoryDbDao = AppDatabase.getDatabase(applicationContext).categoryDao()
 
         buttonIncome = findViewById(R.id.btn_income)
         buttonExpense = findViewById(R.id.btn_expenses)
@@ -42,64 +75,77 @@ class AddCategory : AppCompatActivity() {
         buttonCancel = findViewById(R.id.btn_cancel)
         iconContainer = findViewById(R.id.icon_container)
 
-        // Handle type buttons
+        setupTypeButtons()
+        setupIcons()
+        setupActionButtons()
+        updateTypeSelectionUI() // Set initial button colors
+    }
+
+    private fun setupTypeButtons() {
         buttonIncome.setOnClickListener {
             selectedType = "Income"
-            buttonIncome.setBackgroundColor(getColor(android.R.color.holo_green_dark))
-            buttonExpense.setBackgroundColor(getColor(android.R.color.darker_gray))
+            updateTypeSelectionUI()
         }
-
         buttonExpense.setOnClickListener {
             selectedType = "Expense"
-            buttonExpense.setBackgroundColor(getColor(android.R.color.holo_red_dark))
-            buttonIncome.setBackgroundColor(getColor(android.R.color.darker_gray))
+            updateTypeSelectionUI()
         }
+    }
 
+    private fun updateTypeSelectionUI() {
+        if (selectedType == "Income") {
+            buttonIncome.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
+            buttonExpense.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray))
+        } else {
+            buttonExpense.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
+            buttonIncome.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray))
+        }
+    }
 
-        // Add selectable icons
-        val iconList = listOf(
-            R.drawable.ic_food,
-            R.drawable.ic_transport,
-            R.drawable.ic_salary,
-            R.drawable.ic_disability,
-            R.drawable.ic_cart,
-            R.drawable.ic_home,
-            R.drawable.ic_heartbeat,
-            R.drawable.ic_gym,
-            R.drawable.ic_loan
-        )
-
-        iconList.forEach { iconRes ->
+    private fun setupIcons() {
+        iconResIdToNameMap.keys.forEach { iconResId ->
             val imageView = ImageView(this).apply {
-                setImageResource(iconRes)
+                setImageResource(iconResId)
+                tag = iconResId
                 layoutParams = LinearLayout.LayoutParams(100, 100).apply {
                     setMargins(16, 8, 16, 8)
                 }
-                setPadding(12, 12, 12, 12)
+                alpha = 0.5f
                 setOnClickListener {
-                    selectedIconResId = iconRes
+                    val clickedResId = it.tag as Int
+                    selectedIconResName = iconResIdToNameMap[clickedResId]
                     highlightSelectedIcon(this)
                 }
             }
             iconContainer.addView(imageView)
         }
+    }
 
+    private fun highlightSelectedIcon(viewToHighlight: ImageView) {
+        selectedImageView?.alpha = 0.5f
+        viewToHighlight.alpha = 1.0f
+        selectedImageView = viewToHighlight
+    }
+
+    private fun setupActionButtons() {
         buttonAdd.setOnClickListener {
             val name = editTextCategoryName.text.toString().trim()
-            if (name.isEmpty() || selectedIconResId == 0) {
-                Toast.makeText(this, "Please enter a name and select an icon.", Toast.LENGTH_SHORT).show()
-            } else {
-                val newCategory = kCategory(
-                    type = selectedType,
-                    name = name,
-                    iconResId = selectedIconResId
-                )
-                val resultIntent = Intent().apply {
-                    putExtra("NEW_CATEGORY", newCategory)
-                }
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
+
+            if (name.isEmpty()) {
+                editTextCategoryName.error = "Category name is needed"
+                editTextCategoryName.requestFocus(); return@setOnClickListener
             }
+            if (selectedIconResName == null) {
+                Toast.makeText(this, "Please select an icon", Toast.LENGTH_SHORT).show(); return@setOnClickListener
+            }
+
+            val newDbCategory = Category(
+                userid = currentUserId,
+                categoryname = name,
+                categoryType = selectedType, // Assumes 'categoryType' field exists
+                iconResName = selectedIconResName // Assumes 'iconResName' field exists
+            )
+            saveCategoryToDb(newDbCategory)
         }
 
         buttonCancel.setOnClickListener {
@@ -108,12 +154,42 @@ class AddCategory : AppCompatActivity() {
         }
     }
 
-    private fun highlightSelectedIcon(selectedImageView: ImageView) {
-        // Clear highlight from all icons
-        for (i in 0 until iconContainer.childCount) {
-            val child = iconContainer.getChildAt(i)
-            child.alpha = 0.5f
+    private fun saveCategoryToDb(category: Category) {
+        lifecycleScope.launch {
+            try {
+                val exists = categoryDbDao.categoryExists(currentUserId, category.categoryname) > 0
+                if (exists) {
+                    Toast.makeText(this@AddCategory, "'${category.categoryname}' already exists!", Toast.LENGTH_SHORT).show()
+                    editTextCategoryName.error = "Name already taken"
+                    editTextCategoryName.requestFocus()
+                    return@launch
+                }
+
+                val result = categoryDbDao.insert(category) // Ensure DAO has insert method
+                if (result != -1L) {
+                    Log.d("AddCategory", "Category saved! ID: $result")
+                    Toast.makeText(this@AddCategory, "Category '${category.categoryname}' added!", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK) // Indicate success
+                    finish()
+                } else {
+                    Log.w("AddCategory", "Failed to save category.")
+                    Toast.makeText(this@AddCategory, "Could not save category.", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("AddCategory", "DB error saving category", e)
+                Toast.makeText(this@AddCategory, "Error adding category.", Toast.LENGTH_SHORT).show()
+            }
         }
-        selectedImageView.alpha = 1.0f
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
+// --- END AddCategory.kt ---

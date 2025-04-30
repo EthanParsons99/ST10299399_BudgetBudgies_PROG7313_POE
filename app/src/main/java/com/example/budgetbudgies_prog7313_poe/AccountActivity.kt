@@ -1,21 +1,108 @@
+// --- START AccountActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView // Import RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager // Import LayoutManager
+import com.example.budgetbudgies_prog7313_poe.AccountDao
+import com.example.budgetbudgies_prog7313_poe.AppDatabase
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 class AccountActivity : AppCompatActivity() {
+
+    private lateinit var accountDbDao: AccountDao
+    private var currentUserId: Int = -1
+    private lateinit var totalBalanceTextView: TextView
+    private lateinit var accountsRecyclerView: RecyclerView
+    private lateinit var accountAdapter: AccountAdapter // Use your Account Adapter here
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
-        val addAccountBtn = findViewById<Button>(R.id.addAccountbtn)
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = "Accounts"
 
-        addAccountBtn.setOnClickListener {
-            val intent = Intent(this, AddAccount::class.java)
-            startActivity(intent)
+        currentUserId = SessionManager.getUserId(applicationContext)
+        if (currentUserId == -1) {
+            Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
+            finish()
+            return
         }
 
+        accountDbDao = AppDatabase.getDatabase(applicationContext).accountDao()
+        totalBalanceTextView = findViewById(R.id.totalbalance)
+        accountsRecyclerView = findViewById(R.id.accountsRecyclerView) // Make sure this ID exists in account_page.xml
+
+        val addAccountBtn = findViewById<Button>(R.id.addAccountbtn)
+        addAccountBtn.setOnClickListener {
+            val intent = Intent(this, AddAccount::class.java)
+            startActivity(intent) // Use startActivity, no result needed if onResume reloads
+        }
+
+        setupRecyclerView()
+        loadAccountsAndBalance()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (currentUserId != -1) {
+            loadAccountsAndBalance() // Reload data when returning to the screen
+        }
+    }
+
+    private fun setupRecyclerView() {
+        accountAdapter = AccountAdapter { account ->
+            // Handle account click here if needed (e.g., navigate to details/edit)
+            Toast.makeText(this, "Clicked on ${account.accountname}", Toast.LENGTH_SHORT).show()
+        }
+        accountsRecyclerView.layoutManager = LinearLayoutManager(this)
+        accountsRecyclerView.adapter = accountAdapter
+    }
+
+
+    private fun loadAccountsAndBalance() {
+        lifecycleScope.launch {
+            try {
+                val userAccounts = accountDbDao.getUserAccountsList(currentUserId)
+                var totalBalance = 0.0
+                userAccounts.forEach { account ->
+                    totalBalance += account.balance
+                }
+                // Update UI on the main thread
+                runOnUiThread {
+                    totalBalanceTextView.text = String.format(Locale.US, "R %.2f", totalBalance)
+                    accountAdapter.submitList(userAccounts) // Update RecyclerView
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this@AccountActivity, "Error loading accounts", Toast.LENGTH_SHORT).show()
+                    totalBalanceTextView.text = "R -.--"
+                }
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
+// --- END AccountActivity.kt ---

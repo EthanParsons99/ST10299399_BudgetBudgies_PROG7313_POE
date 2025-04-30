@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single" >
         <item android:title="Achievements {WIP Work in progress}" />
-        <item android:title="Categorties" />
+        <item android:title="Categories" />
         <item android:title="Currency {WIP}" />
         <item android:title="Support {WIP}" />
         <item android:title="Login" />

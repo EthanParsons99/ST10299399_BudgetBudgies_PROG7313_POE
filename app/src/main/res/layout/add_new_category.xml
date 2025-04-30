@@ -1,128 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Add Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white"
+        android:elevation="4dp"/>
 
-        <!-- Header -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_back"
-                android:contentDescription="Back" />
+            <!-- Removed Back Button Image -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add new category"
+                android:text="Category Type:"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginStart="12dp" />
-        </LinearLayout>
-
-        <!-- Type Toggle -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="6dp"
-            android:gravity="center_vertical">
-
-            <Button
-                android:id="@+id/btn_income"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Income"
-                android:backgroundTint="#00CC00"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/btn_expenses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expenses"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="#CC0000"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- Name Input -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name:"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/edit_category_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:hint="Enter category name"
-            android:layout_marginTop="4dp" />
-
-        <!-- Icon Selection -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Icon:"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+                android:layout_marginTop="12dp" />
 
             <LinearLayout
-                android:id="@+id/icon_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/grey_textbox"
-                android:padding="8dp"
-                android:backgroundTint="#DCEBEA"
-                android:layout_marginBottom="16dp" />
-        </HorizontalScrollView>
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
 
+                <Button
+                    android:id="@+id/btn_income"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Income"
+                    android:textColor="#FFFFFF" />
 
-        <!-- Action Buttons -->
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:backgroundTint="#6D8EFF"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="12dp" />
+                <Button
+                    android:id="@+id/btn_expenses"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expenses"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:background="@drawable/bg_item"
-            android:text="Cancel"
-            android:textColor="@color/black" />
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category Name:"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/edit_category_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#888888"
+                android:hint="Enter category name"
+                android:inputType="textCapWords"
+                android:minHeight="48dp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Icon:"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/icon_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/grey_textbox"
+                    android:padding="8dp"
+                    android:backgroundTint="#DCEBEA"
+                    android:layout_marginBottom="16dp" />
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/btn_add"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Category"
+                android:backgroundTint="#6D8EFF"
+                android:textColor="#FFFFFF"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textColor="?attr/colorPrimary"
+                android:padding="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -237,34 +237,44 @@ class AddIncome : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                var result = -1L
-                if (radioIncome.isChecked) {
+                // Get database instance once
+                val db = AppDatabase.getDatabase(applicationContext)
+                var success = false
+
+                if (radioIncome.isChecked) { // Use the variable checking radio button state
                     val newIncome = Income(
                         userid = currentUserId, amount = transactionAmount, date = selectedDate,
                         categoryid = selectedCategory.categoryid, accountid = selectedAccount.accountid
                     )
-                    result = incomeDbDao.insertIncome(newIncome)
-                    Log.d("AddIncome", "Saved Income ID: $result")
-                } else {
+                    // *** CALL DATABASE TRANSACTION HELPER ***
+                    db.insertIncomeAndUpdateAccount(newIncome)
+                    Log.d("AddIncome", "Called insertIncomeAndUpdateAccount")
+                    success = true // Assume success if no exception thrown by transaction
+
+                } else { // Expense selected
                     val newExpense = Expense(
                         userid = currentUserId, amount = transactionAmount, date = selectedDate,
-                        categoryid = selectedCategory.categoryid, description = description.ifEmpty { selectedCategory.categoryname }, // Use category name if desc empty
+                        categoryid = selectedCategory.categoryid, description = description.ifEmpty { selectedCategory.categoryname },
                         photopath = photoUriPath, accountid = selectedAccount.accountid
                     )
-                    result = expenseDbDao.insertExpense(newExpense)
-                    Log.d("AddIncome", "Saved Expense ID: $result with photo: $photoUriPath")
+                    // *** CALL DATABASE TRANSACTION HELPER ***
+                    db.insertExpenseAndUpdateAccount(newExpense)
+                    Log.d("AddIncome", "Called insertExpenseAndUpdateAccount with photo: $photoUriPath")
+                    success = true // Assume success if no exception thrown by transaction
                 }
 
-                if (result != -1L) {
+                // Handle UI feedback after transaction attempt
+                if (success) {
                     Toast.makeText(this@AddIncome, "Transaction saved!", Toast.LENGTH_SHORT).show()
-                    setResult(Activity.RESULT_OK) // Set result so MainActivity can refresh
+                    setResult(Activity.RESULT_OK)
                     finish()
-                } else {
-                    Toast.makeText(this@AddIncome, "Could not save transaction.", Toast.LENGTH_SHORT).show()
                 }
-            } catch (e: Exception) {
-                Log.e("AddIncome", "DB error saving transaction", e)
-                Toast.makeText(this@AddIncome, "Error saving.", Toast.LENGTH_SHORT).show()
+                // If an exception occurred in the transaction helper, the catch block below handles it
+
+            } catch (e: Exception) { // Catch exceptions from transaction helpers
+                Log.e("AddIncome", "Error saving transaction & updating balance", e)
+                // Provide more specific feedback if possible based on exception type
+                Toast.makeText(this@AddIncome, "Error saving: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

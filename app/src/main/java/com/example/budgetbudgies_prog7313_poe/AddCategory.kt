@@ -61,7 +61,12 @@ class AddCategory : AppCompatActivity() {
             R.drawable.ic_food,
             R.drawable.ic_transport,
             R.drawable.ic_salary,
-            R.drawable.ic_disability
+            R.drawable.ic_disability,
+            R.drawable.ic_cart,
+            R.drawable.ic_home,
+            R.drawable.ic_heartbeat,
+            R.drawable.ic_gym,
+            R.drawable.ic_loan
         )
 
         iconList.forEach { iconRes ->

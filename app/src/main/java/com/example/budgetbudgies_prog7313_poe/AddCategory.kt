@@ -27,6 +27,8 @@ class AddCategory : AppCompatActivity() {
     private var selectedType = "Income"
     private var selectedIconResId: Int? = null
     private var selectedImageView: ImageView? = null
+
+
 //displays the list of icons and makes it selectable
     private val iconResIdList = listOf(
         R.drawable.ic_food,
@@ -50,15 +52,16 @@ class AddCategory : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Add New Category"
 
+// Check if user has logged in if not an error message displays
         currentUserId = SessionManager.getUserId(applicationContext)
         if (currentUserId == -1) {
             Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
             finish()
             return
         }
-
+// Initialize the dao
         categoryDbDao = AppDatabase.getDatabase(applicationContext).categoryDao()
-
+// Initialize views
         buttonIncome = findViewById(R.id.btn_income)
         buttonExpense = findViewById(R.id.btn_expenses)
         editTextCategoryName = findViewById(R.id.edit_category_name)
@@ -82,7 +85,7 @@ class AddCategory : AppCompatActivity() {
             updateTypeSelectionUI()
         }
     }
-
+//highlights selected type button
     private fun updateTypeSelectionUI() {
         if (selectedType == "Income") {
             buttonIncome.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
@@ -92,7 +95,7 @@ class AddCategory : AppCompatActivity() {
             buttonIncome.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray))
         }
     }
-
+    // adds icon options  and allows it to be selected
     private fun setupIcons() {
         iconResIdList.forEach { iconResId ->
             val imageView = ImageView(this).apply {
@@ -110,13 +113,13 @@ class AddCategory : AppCompatActivity() {
             iconContainer.addView(imageView)
         }
     }
-
+    // Highlights selected icon and resets
     private fun highlightSelectedIcon(viewToHighlight: ImageView) {
         selectedImageView?.alpha = 0.5f
         viewToHighlight.alpha = 1.0f
         selectedImageView = viewToHighlight
     }
-
+// Add and Cancel button logic
     private fun setupActionButtons() {
         buttonAdd.setOnClickListener {
             val name = editTextCategoryName.text.toString().trim()
@@ -147,7 +150,7 @@ class AddCategory : AppCompatActivity() {
             finish()
         }
     }
-
+    // Inserts category into the database
     private fun saveCategoryToDb(category: Category) {
         lifecycleScope.launch {
             try {
@@ -174,7 +177,7 @@ class AddCategory : AppCompatActivity() {
             }
         }
     }
-
+   // back button logic in toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             finish()

@@ -38,6 +38,15 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Camera is able to take photo on emulator but you are not able to open the photo after the transaction was added
 - But when you run it on a physical device the camera takes a photo and after the transaction was added you are able to view the photo
 
+## Upcoming Features
+- Connection to a Firbase database
+- Working Analytics page for a detailed view of how money is being spent and earned
+- Working progress dashboard to keep track of achievements and see where you can improve saving
+- Working Achievements page to add some gamification to saving money and completing goals
+- More gamification to goals page to make it more engaging
+- Feature to allow users to change currency
+- Overall improvements to make app smoother and nicer to use
+
 ## How to run Project
 1. Make sure to have Android Studio installed on your PC and open it
 2. Copy the repository link: https://github.com/EthanParsons99/BudgetBudgies_PROG7313_POE.git 

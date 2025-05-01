@@ -32,9 +32,9 @@ import java.util.Date
 
 data class Income(
     @PrimaryKey(autoGenerate = true) val incomeid: Int = 0,
-    val amount: Double,
-    val date: Date,
-    val userid: Int,
-    val categoryid: Int,
+    val amount: Double,   // collects amount and stores it as a double for income
+    val date: Date,        // collects date and stores it
+    val userid: Int,        //COLLECTS user unique i.d
+    val categoryid: Int,  //collects i.d for the catergory
     val accountid: Int
 )

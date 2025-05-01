@@ -72,8 +72,8 @@ class CategoryActivity : AppCompatActivity() {
             if (existingCategories.isEmpty()) {
                 val defaultCategories = listOf(
                     Category(0, currentUserId, "Salary", "Income", R.drawable.ic_salary),
-                    Category(0, currentUserId, "Food", "Expense", R.drawable.ic_food),
-                    Category(0, currentUserId, "Gift", "Income", R.drawable.ic_cart),
+                    Category(0, currentUserId, "Shopping", "Expense", R.drawable.ic_cart),
+                    Category(0, currentUserId, "Loan", "Income", R.drawable.ic_loan),
                     Category(0, currentUserId, "Transport", "Expense", R.drawable.ic_transport)
                 )
                 defaultCategories.forEach {

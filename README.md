@@ -60,3 +60,9 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Each entity is annotated with @Entity, and the DAO interfaces to access the data
 
 ## References
+- Icons: https://uxwing.com/
+- Camera Integration: https://youtu.be/Pi4m5_JTBj0?si=98jUqAeQRwRn47v8
+- Spinners/Dropdown: https://developer.android.com/develop/ui/views/components/spinner
+                     and https://youtu.be/zIhfp_qftes?si=6FmLU7O_uzLaxnBD
+- Layouts: https://developer.android.com/develop/ui/views/layout/declaring-layout
+- Parcelables: https://medium.com/@calren24/android-parcelables-made-easy-acb742bcf96b

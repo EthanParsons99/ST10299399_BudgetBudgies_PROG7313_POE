@@ -33,17 +33,14 @@ class GoalsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
 
-        // 1) Toolbar back arrow
         findViewById<Toolbar>(R.id.goalsToolbar).apply {
             setNavigationIcon(R.drawable.ic_back_arrow)
             setNavigationOnClickListener { finish() }
         }
 
-        // 2) Room DAO + userId
         dao = AppDatabase.getDatabase(this).goalDao()
         userId = intent.getIntExtra("USER_ID", 0)
 
-        // 3) Widgets
         tvMonthlyGoal     = findViewById(R.id.tvMonthlyGoal)
         tvTotalSaved      = findViewById(R.id.tvTotalSaved)
         tvFulfilledCount  = findViewById(R.id.tvFulfilledCount)
@@ -54,7 +51,6 @@ class GoalsActivity : AppCompatActivity() {
         failedContainer   = findViewById(R.id.failedContainer)
         fabAddGoal        = findViewById(R.id.fabAddGoal)
 
-        // 4) FAB -> full-screen Add page
         fabAddGoal.setOnClickListener {
             startActivity(
                 Intent(this, CreateGoalActivity::class.java)
@@ -62,7 +58,6 @@ class GoalsActivity : AppCompatActivity() {
             )
         }
 
-        // 5) Toggle fulfilled section
         swShowFulfilled.setOnCheckedChangeListener { _, visible ->
             fulfilledContainer.isVisible = visible
         }
@@ -71,10 +66,7 @@ class GoalsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         lifecycleScope.launch {
-            // 1) Grab the full list
             val list = dao.getUserGoalsList(userId)
-
-            // 2) Debug toast
             withContext(Dispatchers.Main) {
                 Toast.makeText(
                     this@GoalsActivity,
@@ -82,47 +74,60 @@ class GoalsActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-            // 3) Render them
             renderGoals(list)
         }
     }
 
-
     private fun renderGoals(goals: List<Goal>) {
-        // 1) Monthly target
         val monthly = goals.sumOf { it.target }
         tvMonthlyGoal.text = "R%.2f".format(monthly)
 
-        // 2) Total saved (stubbed)
-        tvTotalSaved.text = "R0.00"
+        val totalSaved = goals.sumOf { it.savedAmount }
+        tvTotalSaved.text = "R%.2f".format(totalSaved)
 
-        // 3) Fulfilled count (stubbed)
-        tvFulfilledCount.text = "0/${goals.size}"
-        tvFulfilledBonus.text = "+0"
+        val fulfilledCount = goals.count { it.savedAmount >= it.target }
+        tvFulfilledCount.text = "$fulfilledCount/${goals.size}"
+        tvFulfilledBonus.text = "+${fulfilledCount * 10}" // bonus logic placeholder
 
-        // 4) Populate Active section
         activeContainer.removeAllViews()
-        goals.forEach { addGoalView(it, activeContainer) }
+        goals.filter { it.savedAmount < it.target }.forEach {
+            addGoalView(it, activeContainer)
+        }
 
-        // 5) Clear other sections for now
         fulfilledContainer.removeAllViews()
+        goals.filter { it.savedAmount >= it.target }.forEach {
+            addGoalView(it, fulfilledContainer)
+        }
+
         failedContainer.removeAllViews()
+        // Add logic for failed if needed
     }
 
     private fun addGoalView(goal: Goal, parent: ViewGroup) {
         val v = LayoutInflater.from(this)
             .inflate(R.layout.item_goal, parent, false)
 
-        // Bind data
-        v.findViewById<TextView>(R.id.tvName).text   = goal.goalname
-        v.findViewById<TextView>(R.id.tvAmount).text = "R%.2f".format(goal.target)
-        v.findViewById<ProgressBar>(R.id.progressBar).progress = 0
-        v.findViewById<TextView>(R.id.tvPercent).text         = "0%"
-        v.findViewById<ImageView>(R.id.ivStatus)
-            .setImageResource(R.drawable.ic_egg)
+        v.findViewById<TextView>(R.id.tvName).text =
+            goal.goalname
+        v.findViewById<TextView>(R.id.tvAmount).text =
+            "R%.2f".format(goal.target)
 
-        // Edit on click
+        val progressPercent = if (goal.target > 0) {
+            ((goal.savedAmount / goal.target) * 100).toInt().coerceAtMost(100)
+        } else 0
+
+        v.findViewById<ProgressBar>(R.id.progressBar).progress = progressPercent
+        v.findViewById<TextView>(R.id.tvPercent).text = "$progressPercent%"
+
+        v.findViewById<ImageView>(R.id.ivStatus)
+            .setImageResource(
+                when {
+                    progressPercent >= 100 -> R.drawable.ic_check
+                    progressPercent >= 50  -> R.drawable.ic_halfway
+                    else                   -> R.drawable.ic_egg
+                }
+            )
+
         v.setOnClickListener {
             startActivity(
                 Intent(this, EditGoalActivity::class.java)

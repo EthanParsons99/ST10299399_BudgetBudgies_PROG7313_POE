@@ -1,3 +1,4 @@
+// --- CreateGoalActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.os.Bundle
@@ -22,40 +23,39 @@ class CreateGoalActivity : AppCompatActivity() {
         dao = AppDatabase.getDatabase(this).goalDao()
         userId = intent.getIntExtra("USER_ID", 0)
 
-        val etName   = findViewById<EditText>(R.id.etName)
-        val etNotes  = findViewById<EditText>(R.id.etNotes)
-        val spCat    = findViewById<Spinner>(R.id.spinnerCategory)
+        val etName = findViewById<EditText>(R.id.etName)
+        val etNotes = findViewById<EditText>(R.id.etNotes)
+        val spCat = findViewById<Spinner>(R.id.spinnerCategory)
         val etAmount = findViewById<EditText>(R.id.etAmount)
-        val spCur    = findViewById<Spinner>(R.id.spinnerCurrency)
+        val spCur = findViewById<Spinner>(R.id.spinnerCurrency)
         val btnSetup = findViewById<Button>(R.id.btnSetup)
 
         spCat.adapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("Supermarket","Fuel","Other")
+            listOf("Supermarket", "Fuel", "Other")
         )
         spCur.adapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("ZAR","USD")
+            listOf("ZAR", "USD")
         )
 
         btnSetup.setOnClickListener {
             val goal = Goal(
-                goalname   = etName.text.toString().trim(),
-                notes      = etNotes.text.toString().trim(),
+                goalname = etName.text.toString().trim(),
+                notes = etNotes.text.toString().trim(),
                 categoryid = spCat.selectedItemPosition,
-                target     = etAmount.text.toString().toDoubleOrNull() ?: 0.0,
-                currency   = spCur.selectedItem.toString(),
-                userid     = userId
+                target = etAmount.text.toString().toDoubleOrNull() ?: 0.0,
+                currency = spCur.selectedItem.toString(),
+                userid = userId
             )
 
             lifecycleScope.launch {
-                // 1) Insert and grab the new row ID
+                // Insert goal
                 val newId = dao.insertGoal(goal)
 
-                // 2) Query how many goals we now have
+                // Query the updated goals list
                 val allGoals = dao.getUserGoalsList(userId)
 
-                // 3) Show a Toast on the main thread
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         this@CreateGoalActivity,
@@ -64,7 +64,6 @@ class CreateGoalActivity : AppCompatActivity() {
                     ).show()
                 }
 
-                // 4) Finish and return
                 finish()
             }
         }

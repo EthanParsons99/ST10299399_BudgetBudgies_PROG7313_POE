@@ -18,7 +18,7 @@ import androidx.room.withTransaction // Import for withTransaction
         Income::class,
         Goal::class
     ],
-    version = 3, // Keep version 3 as provided
+    version = 4, // Keep version 3 as provided
     exportSchema = false
 )
 @TypeConverters(Convert::class)

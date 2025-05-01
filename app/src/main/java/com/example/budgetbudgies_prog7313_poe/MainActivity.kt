@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var incomeDao: IncomeDao
     private lateinit var categoryDao: CategoryDao // Added
     private lateinit var accountDao: AccountDao // Added
+    private lateinit var GoalDao: GoalDao // Added
     // private lateinit var db: AppDatabase // Don't need the whole DB instance usually
 
     // Session/User ID

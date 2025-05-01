@@ -3,8 +3,8 @@
 This repository is for the sign of a moblie app that allows users to keep track of their money. The app allows you to 
 manage your money in a stress free way and more engaging.
 
-Contributers 
-Ethan Parsons
+## Contributers 
+- [@EthanParsons99](https://github.com/EthanParsons99)
 Calwyn Govender
 Morne Erasmus 
 Joshua Thomas

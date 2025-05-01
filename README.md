@@ -1,4 +1,4 @@
-Budget Budgies - Budget Tracker for Androids
+# Budget Budgies - Budget Tracker for Androids
 
 This repository is for the sign of a moblie app that allows users to keep track of their money. The app allows you to 
 manage your money in a stress free way and more engaging.

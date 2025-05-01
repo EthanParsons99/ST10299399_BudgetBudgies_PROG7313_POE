@@ -56,6 +56,7 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Category – keeps track of categories that a user created
 - Expense - keeps track of the expenses that a user makes
 - Income - keeps track of the incomes the user adds
+- Goal - keeps track of any budget goals the user creates
 - Each entity is annotated with @Entity, and the DAO interfaces to access the data
 
 ## References

@@ -47,11 +47,11 @@ Device: Pixel 9 Pro API 35
 10. Click run launch the project
 
 ## Database setup
-•	User – stores the data when a user signs up
-•	Account – stores the accounts that the user added
-•	Category – keeps track of categories that a user created
-•	Expense - keeps track of the expenses that a user makes
-•	Income - keeps track of the incomes the user adds
+- User – stores the data when a user signs up
+- Account – stores the accounts that the user added
+- Category – keeps track of categories that a user created
+- Expense - keeps track of the expenses that a user makes
+- Income - keeps track of the incomes the user adds
 Each entity is annotated with @Entity, and the DAO interfaces to access the data
 
 ## References

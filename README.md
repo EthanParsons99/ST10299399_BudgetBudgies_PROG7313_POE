@@ -45,6 +45,7 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Working Achievements page to add some gamification to saving money and completing goals
 - More gamification to goals page to make it more engaging
 - Feature to allow users to change currency
+- Implementation of innovative features to make app diffrent then others
 - Overall improvements to make app smoother and nicer to use
 
 ## How to run Project

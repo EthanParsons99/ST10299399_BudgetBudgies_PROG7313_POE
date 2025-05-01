@@ -56,10 +56,10 @@
             android:id="@+id/transaction_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="- R 150.00"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:textColor="@color/holo_red_dark"/>
+            tools:text="- R 150.00"
+            tools:textColor="#F80202" />
 
         <TextView
             android:id="@+id/transaction_date"

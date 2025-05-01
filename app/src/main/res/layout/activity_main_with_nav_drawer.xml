@@ -7,14 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_layout"
-        app:menu="@menu/navigation_menu" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,32 +16,41 @@
             android:id="@+id/nav_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#E4EB5B"
-            android:theme="?attr/actionBarTheme"/>
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme" />
 
         <LinearLayout
             android:id="@+id/monthNavSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nav_toolbar"
-            android:background="#CBD23D"
+            android:background="#FFEB3B"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="8dp">
+
             <ImageButton
                 android:id="@+id/prevMonthButton"
-                android:layout_width="68dp" android:layout_height="48dp"
+                android:layout_width="68dp"
+                android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="Previous Month"
                 android:src="@mipmap/ic_back" />
+
             <TextView
                 android:id="@+id/monthYearTextView"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:gravity="center"
-                tools:text="October, 2024" android:textSize="20sp" android:textStyle="bold" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="October, 2024" />
+
             <ImageButton
                 android:id="@+id/nextMonthButton"
-                android:layout_width="68dp" android:layout_height="48dp"
+                android:layout_width="68dp"
+                android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="Next Month"
                 android:src="@mipmap/ic_next" />
@@ -61,38 +62,81 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/monthNavSection"
             android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:background="#BBC139"
-                android:gravity="center" android:orientation="vertical" android:padding="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Expenses" android:textSize="14sp" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00BBC139"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expenses"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/expensesTextView"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    tools:text="R 1234.56" android:textSize="15sp" android:textStyle="bold" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FA1404"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="R 1234.56" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:background="#BBC139"
-                android:gravity="center" android:orientation="vertical" android:padding="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Income" android:textSize="14sp" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Income"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/incomeTextView"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    tools:text="R 5000.00" android:textSize="15sp" android:textStyle="bold" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#DBE628"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="R 5000.00" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:background="#BBC139"
-                android:gravity="center" android:orientation="vertical" android:padding="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Total" android:textSize="14sp" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/totalTextView"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    tools:text="R 3765.44" android:textSize="15sp" android:textStyle="bold" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#652ECF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="R 3765.44" />
             </LinearLayout>
         </LinearLayout>
 
@@ -103,7 +147,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/summarySection"
             android:layout_above="@id/NavigationBar"
-            android:background="@drawable/gradient_background"
+            android:background="@drawable/gradient_background2"
             android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_transaction" />
@@ -159,4 +203,14 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_layout"
+        app:menu="@menu/navigation_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

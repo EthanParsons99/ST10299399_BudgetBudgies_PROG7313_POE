@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/imageViewLeftBird"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="84dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/bird_3" />
+                tools:srcCompat="@mipmap/voel" />
 
             <TextView
                 android:id="@+id/textView"
@@ -45,11 +45,11 @@
 
             <ImageView
                 android:id="@+id/imageViewRightBird"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="84dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="8dp"
                 android:rotationY="180"
-                android:src="@drawable/bird_3" />
+                tools:srcCompat="@mipmap/voel" />
         </LinearLayout>
 
         <EditText

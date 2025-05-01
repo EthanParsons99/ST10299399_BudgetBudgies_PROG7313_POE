@@ -23,11 +23,11 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Uses a LocalDB called RoomDB to store data
 
 ## Technology Used
-Language: Java/Kotlin
-IDE: Android Studio Meerkat 2024.3.1
-Database: RoomDB
-Version Control: GitHub
-Device: Pixel 9 Pro API 35
+- Language: Java/Kotlin
+- IDE: Android Studio Meerkat 2024.3.1
+- Database: RoomDB
+- Version Control: GitHub
+- Device: Pixel 9 Pro API 35
 
 ## Addional Notes
 - Video Link for to see how project works: 
@@ -52,6 +52,6 @@ Device: Pixel 9 Pro API 35
 - Category – keeps track of categories that a user created
 - Expense - keeps track of the expenses that a user makes
 - Income - keeps track of the incomes the user adds
-Each entity is annotated with @Entity, and the DAO interfaces to access the data
+- Each entity is annotated with @Entity, and the DAO interfaces to access the data
 
 ## References

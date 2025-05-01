@@ -21,6 +21,7 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - User can create saving goals
 - User can view previous months expenses and incomes
 - Uses a LocalDB called RoomDB to store data
+- Automated Testing
 
 ## Technology Used
 - Language: Java/Kotlin

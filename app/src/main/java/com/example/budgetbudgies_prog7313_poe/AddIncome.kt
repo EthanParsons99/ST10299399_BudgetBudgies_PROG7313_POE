@@ -1,33 +1,29 @@
-// --- START AddIncome.kt ---
+//-- Start of ADDINCOME.kt --//
 package com.example.budgetbudgies_prog7313_poe
 
+import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
-import android.icu.util.Calendar
-import android.net.Uri
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddIncome : AppCompatActivity() {
 
-    private lateinit var imageUri: Uri
+    private val CAMERA_REQUEST_CODE = 123
+
     private lateinit var incomeDbDao: IncomeDao
     private lateinit var expenseDbDao: ExpenseDao
     private lateinit var categoryDbDao: CategoryDao
@@ -46,45 +42,11 @@ class AddIncome : AppCompatActivity() {
     private lateinit var attachLayout: LinearLayout
     private lateinit var attachReceiptIcon: ImageView
     private lateinit var saveButton: Button
-    private lateinit var deleteButton: Button
 
     private var selectedDate: Date = Date()
-    private var photoUriPath: String? = null
     private var userAccounts: List<Account> = listOf()
     private var userCategories: List<Category> = listOf()
     private var currentFilteredCategories: List<Category> = listOf()
-
-    private var currentPhotoPath: String? = null
-
-    private val pickImageLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            try {
-                val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                contentResolver.takePersistableUriPermission(uri, takeFlags)
-                photoUriPath = it.toString()
-                attachReceiptIcon.setColorFilter(ContextCompat.getColor(this, R.color.holo_green_dark))
-                Toast.makeText(this, "Photo attached!", Toast.LENGTH_SHORT).show()
-            } catch (e: SecurityException) {
-                Toast.makeText(this, "Could not attach photo.", Toast.LENGTH_SHORT).show()
-                photoUriPath = null
-                attachReceiptIcon.clearColorFilter()
-            }
-        }
-    }
-
-    private val takePictureLauncher = registerForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { success ->
-        if (success) {
-            photoUriPath = imageUri.toString()
-            attachReceiptIcon.setColorFilter(ContextCompat.getColor(this, R.color.holo_green_dark))
-            Toast.makeText(this, "Photo captured!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Camera cancelled", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,14 +91,12 @@ class AddIncome : AppCompatActivity() {
         attachLayout = findViewById(R.id.attachLayout)
         attachReceiptIcon = findViewById(R.id.receiptIcon)
         saveButton = findViewById(R.id.saveButton)
-        deleteButton = findViewById(R.id.deleteButton)
     }
 
     private fun setupInitialState() {
         updateDateLabel()
         dateInput.isFocusable = false
         dateInput.isClickable = true
-        deleteButton.visibility = View.GONE
         radioIncome.isChecked = true
     }
 
@@ -144,43 +104,62 @@ class AddIncome : AppCompatActivity() {
         dateInput.setOnClickListener { showDatePickerDialog() }
 
         attachLayout.setOnClickListener {
-            showPhotoOptionsDialog()
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                openCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    CAMERA_REQUEST_CODE
+                )
+            }
         }
 
         saveButton.setOnClickListener { saveTransaction() }
         radioGroupType.setOnCheckedChangeListener { _, _ -> updateCategorySpinnerBasedOnType() }
-        setupCurrencySpinnerListener()
     }
 
-    private fun showPhotoOptionsDialog() {
-        val options = arrayOf("Take Photo", "Choose from Gallery")
-        val builder = android.app.AlertDialog.Builder(this)
-        builder.setTitle("Attach Receipt")
-        builder.setItems(options) { _, which ->
-            when (which) {
-                0 -> openCamera()
-                1 -> pickImageLauncher.launch("image/*")
-            }
-        }
-        builder.show()
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        calendar.time = selectedDate
+        DatePickerDialog(this, { _, year, month, day ->
+            val newCalendar = Calendar.getInstance()
+            newCalendar.set(year, month, day)
+            selectedDate = newCalendar.time
+            updateDateLabel()
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 
-    private fun setupCurrencySpinnerListener() {
-        val currencies = listOf("ZAR", "USD", "EUR", "GBP")
-        val currencyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, currencies)
-        currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCurrency.adapter = currencyAdapter
-        val tvCurrencySelected = findViewById<TextView>(R.id.tvCurrencySelected)
-        spinnerCurrency.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                tvCurrencySelected?.text = "Selected: ${spinnerCurrency.selectedItem}"
-                tvCurrencySelected?.visibility = View.VISIBLE
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                tvCurrencySelected?.visibility = View.GONE
+    private fun updateDateLabel() {
+        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        dateInput.setText(format.format(selectedDate))
+    }
+
+    private fun openCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            openCamera()
+        } else {
+            Toast.makeText(this, "Camera permission is required.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val photo = data?.extras?.get("data") as? Bitmap
+            if (photo != null) {
+                attachReceiptIcon.setImageBitmap(photo)
+                Toast.makeText(this, "Photo captured!", Toast.LENGTH_SHORT).show()
             }
         }
-        tvCurrencySelected?.visibility = View.GONE
     }
 
     private fun loadSpinnersData() {
@@ -188,14 +167,12 @@ class AddIncome : AppCompatActivity() {
             try {
                 userAccounts = accountDbDao.getUserAccountsList(currentUserId)
                 val accountNames = userAccounts.map { it.accountname }
-                val accountAdapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, accountNames)
-                accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerAccount.adapter = accountAdapter
+                spinnerAccount.adapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, accountNames)
 
                 userCategories = categoryDbDao.getUserCategoriesList(currentUserId)
                 updateCategorySpinnerBasedOnType()
             } catch (e: Exception) {
-                Toast.makeText(this@AddIncome, "Could not load accounts/categories", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddIncome, "Failed to load accounts/categories.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -206,30 +183,7 @@ class AddIncome : AppCompatActivity() {
             it.categoryType == if (isIncome) "Income" else "Expense"
         }
         val categoryNames = currentFilteredCategories.map { it.categoryname }
-        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCategory.adapter = categoryAdapter
-    }
-
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        calendar.time = selectedDate
-
-        DatePickerDialog(
-            this,
-            { _, year, month, day ->
-                val newCalendar = Calendar.getInstance()
-                newCalendar.set(year, month, day)
-                selectedDate = newCalendar.time
-                updateDateLabel()
-            },
-            calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun updateDateLabel() {
-        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        dateInput.setText(format.format(selectedDate))
+        spinnerCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
     }
 
     private fun saveTransaction() {
@@ -238,45 +192,48 @@ class AddIncome : AppCompatActivity() {
         val selectedAccountPos = spinnerAccount.selectedItemPosition
         val selectedCategoryPos = spinnerCategory.selectedItemPosition
 
-        var amountValue: Double? = null
-        if (amountStr.isEmpty()) { amountInput.error = "Need an amount!"; amountInput.requestFocus(); return }
-        try { amountValue = amountStr.toDouble() }
-        catch (e: NumberFormatException) { amountInput.error = "Not a valid number"; amountInput.requestFocus(); return }
+        val amountValue = amountStr.toDoubleOrNull()
+        if (amountValue == null) {
+            amountInput.error = "Enter a valid amount"
+            return
+        }
+        if (selectedAccountPos < 0 || selectedCategoryPos < 0) {
+            Toast.makeText(this, "Select account and category", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        if (selectedAccountPos < 0 || userAccounts.isEmpty()) { Toast.makeText(this, "Please select an account", Toast.LENGTH_SHORT).show(); return }
-        if (selectedCategoryPos < 0 || currentFilteredCategories.isEmpty()) { Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show(); return }
-
-        val selectedAccount = userAccounts[selectedAccountPos]
-        val selectedCategory = currentFilteredCategories[selectedCategoryPos]
-        val transactionAmount = amountValue ?: 0.0
+        val account = userAccounts[selectedAccountPos]
+        val category = currentFilteredCategories[selectedCategoryPos]
 
         lifecycleScope.launch {
-            try {
-                var result = -1L
-                if (radioIncome.isChecked) {
-                    val newIncome = Income(
-                        userid = currentUserId, amount = transactionAmount, date = selectedDate,
-                        categoryid = selectedCategory.categoryid, accountid = selectedAccount.accountid
-                    )
-                    result = incomeDbDao.insertIncome(newIncome)
-                } else {
-                    val newExpense = Expense(
-                        userid = currentUserId, amount = transactionAmount, date = selectedDate,
-                        categoryid = selectedCategory.categoryid, description = description.ifEmpty { selectedCategory.categoryname },
-                        photopath = photoUriPath, accountid = selectedAccount.accountid
-                    )
-                    result = expenseDbDao.insertExpense(newExpense)
-                }
+            val result = if (radioIncome.isChecked) {
+                val income = Income(
+                    amount = amountValue,
+                    date = selectedDate,
+                    userid = currentUserId,
+                    categoryid = category.categoryid,
+                    accountid = account.accountid
+                )
+                incomeDbDao.insertIncome(income)
+            } else {
+                val expense = Expense(
+                    amount = amountValue,
+                    date = selectedDate,
+                    userid = currentUserId,
+                    categoryid = category.categoryid,
+                    description = description,
+                    photopath = null,
+                    accountid = account.accountid
+                )
+                expenseDbDao.insertExpense(expense)
+            }
 
-                if (result != -1L) {
-                    Toast.makeText(this@AddIncome, "Transaction saved!", Toast.LENGTH_SHORT).show()
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                } else {
-                    Toast.makeText(this@AddIncome, "Could not save transaction.", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@AddIncome, "Error saving.", Toast.LENGTH_SHORT).show()
+            if (result != -1L) {
+                Toast.makeText(this@AddIncome, "Transaction saved!", Toast.LENGTH_SHORT).show()
+                setResult(Activity.RESULT_OK)
+                finish()
+            } else {
+                Toast.makeText(this@AddIncome, "Save failed.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -288,19 +245,5 @@ class AddIncome : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun createImageFile(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir!!)
-            .also { currentPhotoPath = it.absolutePath }
-    }
-
-    private fun openCamera() {
-        val photoFile: File = createImageFile()
-        imageUri = FileProvider.getUriForFile(this, "${packageName}.provider", photoFile)
-        takePictureLauncher.launch(imageUri)
-    }
 }
-
 // --- END AddIncome.kt ---

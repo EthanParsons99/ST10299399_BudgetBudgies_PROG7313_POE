@@ -19,20 +19,22 @@
         android:layout_margin="16dp"/>
 
     <!-- Title -->
+
+    <!-- Name label & underline -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Create a goal"
+        android:layout_marginStart="8dp"
+        android:text="Edit Goal"
+        android:textColor="#000"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#000"
         app:layout_constraintBaseline_toBaselineOf="@id/btnBack"
-        app:layout_constraintStart_toEndOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/btnBack" />
 
-    <!-- Name label & underline -->
     <TextView
         android:id="@+id/labelName"
         android:layout_width="wrap_content"
@@ -142,7 +144,7 @@
         android:id="@+id/btnSetup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Setup Goal"
+        android:text="Save Goal"
         android:textColor="#FFF"
         android:background="@drawable/pill_button_background"
         android:backgroundTint="#4AA0F0"

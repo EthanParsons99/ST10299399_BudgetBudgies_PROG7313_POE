@@ -30,11 +30,11 @@ import java.util.Date
 )
 data class Expense(
     @PrimaryKey(autoGenerate = true) val expenseid: Int = 0,
-    val amount: Double,
-    val date: Date,
-    val userid: Int,
+    val amount: Double,     // Amount
+    val date: Date,         // Date
+    val userid: Int,      // user I.D
     val categoryid: Int,   // Foreign key for Category table
-    val description: String,
-    val photopath: String?,
-    val accountid: Int
+    val description: String, //stores the description as a string
+    val photopath: String?, //For the photo
+    val accountid: Int   // Account I.D
 )

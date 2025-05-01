@@ -70,7 +70,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="R 0.00"
-            android:textColor="#DBE628"
+            android:textColor="#00A93F"
             android:textSize="30sp"
             android:textStyle="bold" />
 

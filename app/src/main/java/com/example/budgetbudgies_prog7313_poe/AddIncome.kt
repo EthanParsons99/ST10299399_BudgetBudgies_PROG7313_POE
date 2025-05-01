@@ -6,50 +6,51 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-// Remove Bitmap import if not needed for display
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment // Import Environment
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts // Use this for permissions/camera later
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider // Import FileProvider
+import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetbudgies_prog7313_poe.*
 import kotlinx.coroutines.launch
-import java.io.File // Import File
-import java.io.IOException // Import IOException
+import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddIncome : AppCompatActivity() {
 
-    // Use ActivityResultLauncher for Camera Permission Request
+    // Launcher to request camera permisson when used
     private val requestCameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
+                // Permission received , a user can access the camera
                 Log.d("AddIncome", "Camera permission granted")
-                openCamera() // Call openCamera again after permission granted
+                openCamera()
             } else {
+                // Permission denied, user cant access the camera
                 Log.w("AddIncome", "Camera permission denied")
                 Toast.makeText(this, "Camera permission is required to take photos.", Toast.LENGTH_SHORT).show()
             }
         }
 
-    // Use ActivityResultLauncher for Camera Intent Result
+    // Launcher to handle the result from the camera
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // No 'data' extra needed when using EXTRA_OUTPUT
-                // The image is saved to the 'currentPhotoUri'
+
+                // Photo was successfully taken
                 if (currentPhotoUri != null) {
                     Log.d("AddIncome", "Photo captured successfully to URI: $currentPhotoUri")
                     photoUriPath = currentPhotoUri.toString() // Store the URI String
@@ -57,6 +58,7 @@ class AddIncome : AppCompatActivity() {
                     attachReceiptIcon.setColorFilter(ContextCompat.getColor(this, R.color.holo_green_dark))
                     Toast.makeText(this, "Photo attached!", Toast.LENGTH_SHORT).show()
                 } else {
+                    // Photo failed
                     Log.e("AddIncome", "currentPhotoUri was null after camera returned OK")
                     Toast.makeText(this, "Failed to get photo URI.", Toast.LENGTH_SHORT).show()
                     photoUriPath = null
@@ -67,13 +69,13 @@ class AddIncome : AppCompatActivity() {
                 Toast.makeText(this, "Photo capture cancelled.", Toast.LENGTH_SHORT).show()
                 photoUriPath = null // Clear path if cancelled
                 attachReceiptIcon.clearColorFilter()
-                // Optionally delete the temporary file if it was created but capture failed/cancelled
+
                 if (currentPhotoUri != null) {
-                    // Create a file object from the URI and delete it if necessary
+
                 }
             }
-            // Nullify the temp URI after processing the result
-            currentPhotoUri = null
+            // Clear the current URI when done
+                currentPhotoUri = null
         }
 
 
@@ -99,8 +101,8 @@ class AddIncome : AppCompatActivity() {
 
     // Data holders
     private var selectedDate: Date = Date()
-    private var photoUriPath: String? = null // Will store the String URI of the saved photo
-    private var currentPhotoUri: Uri? = null // Temporary URI for camera output
+    private var photoUriPath: String? = null
+    private var currentPhotoUri: Uri? = null
     private var userAccounts: List<Account> = listOf()
     private var userCategories: List<Category> = listOf()
     private var currentFilteredCategories: List<Category> = listOf()
@@ -110,24 +112,25 @@ class AddIncome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_income_page)
 
+        // Setup the toolbar with a back button and title
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Add Transaction"
-
+        // gets current user
         currentUserId = SessionManager.getUserId(applicationContext)
         if (currentUserId == -1) {
             Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
-            finish(); return
+            finish(); return // Exit if user is not logged in
         }
 
         initializeDaos()
-        findViews()
+        findViews()         // Bind views from the layout
         setupInitialState()
         setupListeners()
-        loadSpinnersData()
+        loadSpinnersData() // Load account and category spinner data
     }
-
+    // Initialize the database access
     private fun initializeDaos() {
         val db = AppDatabase.getDatabase(applicationContext)
         incomeDbDao = db.incomeDao()
@@ -135,7 +138,7 @@ class AddIncome : AppCompatActivity() {
         categoryDbDao = db.categoryDao()
         accountDbDao = db.accountDao()
     }
-
+    // Links all view components from the layout file to variables
     private fun findViews() {
         radioGroupType = findViewById(R.id.radioGroupType)
         radioIncome = findViewById(R.id.radioIncome)
@@ -149,15 +152,15 @@ class AddIncome : AppCompatActivity() {
         attachLayout = findViewById(R.id.attachLayout)
         attachReceiptIcon = findViewById(R.id.receiptIcon)
         saveButton = findViewById(R.id.saveButton)
-        // Ensure deleteButton is removed or handled if needed for edit mode later
+        // Ensure deleteButton is removed or handled if needed for edit mode later(part 3)
         findViewById<Button>(R.id.deleteButton)?.visibility = View.GONE
     }
 
     private fun setupInitialState() {
-        updateDateLabel()
+        updateDateLabel()  // Set current date
         dateInput.isFocusable = false
         dateInput.isClickable = true
-        radioIncome.isChecked = true
+        radioIncome.isChecked = true // Default for income
     }
 
     private fun setupListeners() {
@@ -165,7 +168,7 @@ class AddIncome : AppCompatActivity() {
         attachLayout.setOnClickListener { checkCameraPermissionAndOpenCamera() } // Call check function
         saveButton.setOnClickListener { saveTransaction() }
         radioGroupType.setOnCheckedChangeListener { _, _ -> updateCategorySpinnerBasedOnType() }
-        setupCurrencySpinner()
+        setupCurrencySpinner() // populate currency options
     }
 
     private fun checkCameraPermissionAndOpenCamera() {
@@ -232,8 +235,8 @@ class AddIncome : AppCompatActivity() {
         Log.d("AddIncome", "Storage directory: ${storageDir?.absolutePath}")
 
         return File.createTempFile(
-            imageFileName, /* prefix */
-            ".jpg",        /* suffix */
+            imageFileName,
+            ".jpg",
             storageDir     /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents -- this isn't used here directly
@@ -252,11 +255,15 @@ class AddIncome : AppCompatActivity() {
         spinnerCurrency.adapter = currencyAdapter
         // Optional: Add listener or default selection
     }
-
+    // Loads user accounts and categories into the respective spinner
     private fun loadSpinnersData() {
         lifecycleScope.launch {
             try {
+                // Fetchs user from db
                 userAccounts = accountDbDao.getUserAccountsList(currentUserId)
+
+               // Prepare a list of account names with a default "Select Account" prompt
+
                 val accountDisplayNames = mutableListOf<String>("Select Account")
                 userAccounts.mapTo(accountDisplayNames) { it.accountname }
                 val accountAdapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, accountDisplayNames)
@@ -264,15 +271,15 @@ class AddIncome : AppCompatActivity() {
                 spinnerAccount.adapter = accountAdapter
 
                 userCategories = categoryDbDao.getUserCategoriesList(currentUserId)
-                updateCategorySpinnerBasedOnType() // Update spinner with loaded categories + prompt
-
+                updateCategorySpinnerBasedOnType() // Update spinner with loaded categories
+                //error handling
             } catch (e: Exception) {
                 Log.e("AddIncome", "Error loading spinner data", e)
                 Toast.makeText(this@AddIncome, "Failed to load accounts/categories.", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
+// Depending what the user selects a certain list of categorys display
     private fun updateCategorySpinnerBasedOnType() {
         val isIncome = radioIncome.isChecked
         currentFilteredCategories = userCategories.filter {
@@ -286,7 +293,7 @@ class AddIncome : AppCompatActivity() {
         spinnerCategory.adapter = categoryAdapter
     }
 
-
+//Dialog for the date selection
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         calendar.time = selectedDate
@@ -296,12 +303,12 @@ class AddIncome : AppCompatActivity() {
             updateDateLabel()
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
-
+// for the date
     private fun updateDateLabel() {
         val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateInput.setText(format.format(selectedDate))
     }
-
+//To save the transaction
     private fun saveTransaction() {
         val amountStr = amountInput.text.toString().trim()
         val description = descriptionInput.text.toString().trim()
@@ -325,16 +332,19 @@ class AddIncome : AppCompatActivity() {
             try {
                 val db = AppDatabase.getDatabase(applicationContext)
                 var success = false
-
+                // Check if the user selected "Income"
                 if (radioIncome.isChecked) {
+                    // Create a new Income object with entered details
                     val newIncome = Income(
                         amount = amountValue, date = selectedDate, userid = currentUserId,
                         categoryid = selectedCategory.categoryid, accountid = selectedAccount.accountid
                     )
+                    // Insert income and update account balance
                     db.insertIncomeAndUpdateAccount(newIncome)
                     Log.d("AddIncome", "Saved Income")
                     success = true
                 } else {
+                    // Create a new Expense
                     val newExpense = Expense(
                         amount = amountValue, date = selectedDate, userid = currentUserId,
                         categoryid = selectedCategory.categoryid,
@@ -342,11 +352,12 @@ class AddIncome : AppCompatActivity() {
                         photopath = finalPhotoPath, // *** Use the stored photo URI string ***
                         accountid = selectedAccount.accountid
                     )
+                    // Insert expense and update account balance
                     db.insertExpenseAndUpdateAccount(newExpense)
                     Log.d("AddIncome", "Saved Expense with photo: $finalPhotoPath")
                     success = true
                 }
-
+                // Tells user and close activity if saving was successful
                 if (success) {
                     Toast.makeText(this@AddIncome, "Transaction saved!", Toast.LENGTH_SHORT).show()
                     setResult(Activity.RESULT_OK)
@@ -359,12 +370,13 @@ class AddIncome : AppCompatActivity() {
             }
         }
     }
-
+    // Handles action bar item clicks
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish() // Handle Up button
+            finish() // Close this activity and return to the previous one
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

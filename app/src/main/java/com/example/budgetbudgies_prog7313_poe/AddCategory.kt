@@ -27,7 +27,7 @@ class AddCategory : AppCompatActivity() {
     private var selectedType = "Income"
     private var selectedIconResId: Int? = null
     private var selectedImageView: ImageView? = null
-
+//displays the list of icons and makes it selectable
     private val iconResIdList = listOf(
         R.drawable.ic_food,
         R.drawable.ic_transport,
@@ -71,7 +71,7 @@ class AddCategory : AppCompatActivity() {
         setupActionButtons()
         updateTypeSelectionUI()
     }
-
+//Checks if the user clicked income or expense and adds it to the proper category
     private fun setupTypeButtons() {
         buttonIncome.setOnClickListener {
             selectedType = "Income"

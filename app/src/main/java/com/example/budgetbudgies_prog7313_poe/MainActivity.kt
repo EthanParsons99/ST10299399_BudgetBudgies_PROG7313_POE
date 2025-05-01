@@ -273,12 +273,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             "Currency {WIP}" -> Intent(this, PlaceholderActivity::class.java).apply {
                 putExtra(PlaceholderActivity.EXTRA_FEATURE_NAME, "Currency")
             }
-            "Login" -> {
-                SessionManager.clearSession(applicationContext)
-                goToLogin()
-                null
-            }
-            "Sign Up" -> Intent(this, SignUpActivity::class.java)
+
             "Sign Out" -> {
                 SessionManager.clearSession(applicationContext)
                 goToLogin()

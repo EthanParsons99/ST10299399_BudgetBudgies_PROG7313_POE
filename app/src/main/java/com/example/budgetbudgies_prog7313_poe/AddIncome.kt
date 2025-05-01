@@ -165,14 +165,36 @@ class AddIncome : AppCompatActivity() {
     private fun loadSpinnersData() {
         lifecycleScope.launch {
             try {
+                // Load accounts
                 userAccounts = accountDbDao.getUserAccountsList(currentUserId)
                 val accountNames = userAccounts.map { it.accountname }
-                spinnerAccount.adapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, accountNames)
+                val accountAdapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, accountNames)
+                accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerAccount.adapter = accountAdapter
 
+                // Load categories
                 userCategories = categoryDbDao.getUserCategoriesList(currentUserId)
                 updateCategorySpinnerBasedOnType()
+
+
+                val currencies = listOf(
+                    "ZAR",
+                    "USD",
+                    "EUR",
+                    "GBP",
+                    "JPY",
+                    "AUD",
+                    "CAD",
+                    "CHF",
+                    "CNY",
+                    "INR"
+                )
+                val currencyAdapter = ArrayAdapter(this@AddIncome, android.R.layout.simple_spinner_item, currencies)
+                currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerCurrency.adapter = currencyAdapter
+
             } catch (e: Exception) {
-                Toast.makeText(this@AddIncome, "Failed to load accounts/categories.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddIncome, "Failed to load accounts/categories/currencies.", Toast.LENGTH_SHORT).show()
             }
         }
     }

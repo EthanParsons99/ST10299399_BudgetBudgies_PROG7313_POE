@@ -3,10 +3,10 @@ This repository is for the sign of a moblie app that allows users to keep track 
 manage your money in a stress free way and more engaging.
 
 ## Contributers 
-- [@EthanParsons99](https://github.com/EthanParsons99) - Ethan Parsons
-- [@ST10303017](https://github.com/ST10303017) - Calwyn Govender
-- [@Joshcybr](https://github.com/Joshcybr) - Joshua Thomas
-- [@ST10400684](https://github.com/ST10400684) - Morne Erasmus
+- [@EthanParsons99](https://github.com/EthanParsons99) - Ethan Parsons: ST10299399
+- [@ST10303017](https://github.com/ST10303017) - Calwyn Govender: ST10303017
+- [@Joshcybr](https://github.com/Joshcybr) - Joshua Thomas: ST10263292
+- [@ST10400684](https://github.com/ST10400684) - Morne Erasmu: ST10400684
 
 
 ## About the project
@@ -30,7 +30,10 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Device: Pixel 9 Pro API 35
 
 ## Addional Notes
-- Video Link for to see how project works: 
+- Video Link for to see how project works:
+- Some features are still a work in progress {WIP}
+- Gamification still needs adding to make the app more entertaining
+- Top Navigation bars back and menu buttons are trickey to click but they do work
 
 ## How to run Project
 1. Make sure to have Android Studio installed on your PC and open it

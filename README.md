@@ -35,6 +35,8 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Some features are still a work in progress {WIP}
 - Gamification still needs adding to make the app more entertaining
 - Top Navigation bars back and menu buttons are trickey to click but they do work
+- Camera is able to take photo on emulator but you are not able to open the photo after the transaction was added
+- But when you run it on a physical device the camera takes a photo and after the transaction was added you are able to view the photo
 
 ## How to run Project
 1. Make sure to have Android Studio installed on your PC and open it
@@ -60,3 +62,11 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Each entity is annotated with @Entity, and the DAO interfaces to access the data
 
 ## References
+- Icons: https://uxwing.com/
+- Camera Integration: https://youtu.be/Pi4m5_JTBj0?si=98jUqAeQRwRn47v8
+- Spinners/Dropdown: https://developer.android.com/develop/ui/views/components/spinner
+                     and https://youtu.be/zIhfp_qftes?si=6FmLU7O_uzLaxnBD
+- Category Design: https://youtu.be/saKrGCWlJDs?si=cO3yjADXNrJLkDvh
+- Layouts: https://developer.android.com/develop/ui/views/layout/declaring-layout
+- Parcelables: https://medium.com/@calren24/android-parcelables-made-easy-acb742bcf96b
+- ReadME help: https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file

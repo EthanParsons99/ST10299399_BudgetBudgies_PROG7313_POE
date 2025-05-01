@@ -23,9 +23,8 @@ data class Category(
     @PrimaryKey(autoGenerate = true) val categoryid: Int = 0,
     val userid: Int,
     val categoryname: String,
-    // --- Added Fields ---
     val categoryType: String, // "Income" or "Expense"
     val icon: Int // Store drawable resource name as int (e.g., "ic_food")
-    // --- End Added Fields ---
+
 )
 // --- END Category.kt ---

@@ -17,7 +17,7 @@
                 android:id="@+id/goalsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFEA80"
+                android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/ic_back_arrow"
                 app:title="Goals"
                 app:titleTextColor="#000000" />

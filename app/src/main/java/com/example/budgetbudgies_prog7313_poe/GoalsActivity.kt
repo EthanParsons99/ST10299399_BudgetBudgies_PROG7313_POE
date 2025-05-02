@@ -32,8 +32,11 @@ class GoalsActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            db.goalDao().getUserGoals(userId).collectLatest {
-                adapter.submitList(it)
+            db.goalDao().getUserGoals(userId).collectLatest { goals ->
+                adapter.submitList(goals)
+
+                val total = goals.sumOf { it.target }
+                binding.tvMonthlyGoal.text = "R%.2f".format(total)
             }
         }
     }

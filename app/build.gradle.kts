@@ -11,6 +11,10 @@ android {
     compileSdk = 35
     viewBinding.enable = true
 
+    buildFeatures{
+        viewBinding = true
+        dataBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.budgetbudgies_prog7313_poe"
         minSdk = 24

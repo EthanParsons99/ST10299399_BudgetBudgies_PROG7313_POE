@@ -1,45 +1,36 @@
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.budgetbudgies_prog7313_poe.Goal
-import com.example.budgetbudgies_prog7313_poe.R
+package com.example.budgetbudgies_prog7313_poe
 
-class GoalAdapter(private val goals: List<Goal>) : RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.example.budgetbudgies_prog7313_poe.databinding.GoalItemBinding
+
+class GoalAdapter : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.goal_item, parent, false)
-        return GoalViewHolder(view)
+        val binding = GoalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GoalViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
-        val goal = goals[position]
-
-        // Set Goal Name
-        holder.tvGoalName.text = goal.goalname
-
-        // Set Goal Notes
-        holder.tvGoalNotes.text = goal.notes
-
-        // Calculate Progress
-        val progress = (goal.savedAmount / goal.target * 100).toInt()
-        holder.tvProgressLabel.text = "Progress: $progress%"
-
-        // Update ProgressBar
-        holder.progressBar.progress = progress
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return goals.size
+    inner class GoalViewHolder(private val binding: GoalItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(goal: Goal) {
+            binding.tvName.text = goal.goalname
+            binding.tvTarget.text = "Target: ${goal.target} ${goal.currency}"
+            binding.tvSaved.text = "Saved: ${goal.savedAmount} ${goal.currency}"
+            binding.tvNotes.text = goal.notes
+        }
     }
 
-    // ViewHolder for binding the views
-    class GoalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvGoalName: TextView = view.findViewById(R.id.tvGoalName)
-        val tvGoalNotes: TextView = view.findViewById(R.id.tvGoalNotes)
-        val tvProgressLabel: TextView = view.findViewById(R.id.tvProgressLabel)
-        val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+    class DiffCallback : DiffUtil.ItemCallback<Goal>() {
+        override fun areItemsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem.goalid == newItem.goalid
+        override fun areContentsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem == newItem
     }
 }

@@ -40,7 +40,7 @@
         <activity android:name=".AddCategory" android:exported="false" />
         <activity android:name=".CategoryActivity" android:exported="false" />
         <activity android:name=".MonthlySummaryActivity" />
-
+        <activity android:name=".AddGoalActivity" android:exported="false" />
 
         <!-- Correct Goal Activities -->
         <activity android:name=".GoalsActivity" android:exported="false" /> <!-- Main Goals display -->

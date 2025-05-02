@@ -1,6 +1,7 @@
 // --- START AccountActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
+// Imports
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -19,11 +20,11 @@ import java.util.Locale
 
 class AccountActivity : AppCompatActivity() {
 
-    private lateinit var accountDbDao: AccountDao
-    private var currentUserId: Int = -1
+    private lateinit var accountDbDao: AccountDao //DAO to acces account data
+    private var currentUserId: Int = -1 // ID of the user that is currently logged in
     private lateinit var totalBalanceTextView: TextView
     private lateinit var accountsRecyclerView: RecyclerView
-    private lateinit var accountAdapter: AccountAdapter // Use your Account Adapter here
+    private lateinit var accountAdapter: AccountAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +42,12 @@ class AccountActivity : AppCompatActivity() {
             finish()
             return
         }
-
+//get currents user ID from session manager
         accountDbDao = AppDatabase.getDatabase(applicationContext).accountDao()
         totalBalanceTextView = findViewById(R.id.totalbalance)
         accountsRecyclerView = findViewById(R.id.accountsRecyclerView) // Make sure this ID exists in account_page.xml
 
+        //Add Account button
         val addAccountBtn = findViewById<Button>(R.id.addAccountbtn)
         addAccountBtn.setOnClickListener {
             val intent = Intent(this, AddAccount::class.java)

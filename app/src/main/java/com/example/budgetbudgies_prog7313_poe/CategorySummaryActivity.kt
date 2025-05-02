@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of CategorySummaryActivity.kt ---
 
+package com.example.budgetbudgies_prog7313_poe
+//Imports
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
@@ -119,3 +121,4 @@ class CategorySummaryActivity : AppCompatActivity() {
         }
     }
 }
+// _________________________________END OF FILE___________________________________

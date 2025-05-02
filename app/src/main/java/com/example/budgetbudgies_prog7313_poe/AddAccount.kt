@@ -21,7 +21,7 @@ class AddAccount : AppCompatActivity() {
     private lateinit var accountDbDao: AccountDao
     private var currentUserId: Int = -1
 
-    private val bankNames = listOf("Select Bank", "FNB", "Absa", "Capitec", "Nedbank", "Standard Bank", "TymeBank", "Other")
+    private val bankNames = listOf("Select Bank", "FNB", "Absa", "Capitec", "Nedbank", "Standard Bank", "TymeBank", "Other") //make a list of different bank names
     private val colorNames = listOf("Select Color", "Default", "Blue", "Green", "Red", "Purple", "Orange", "Grey")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +68,7 @@ class AddAccount : AppCompatActivity() {
             val selectedColorName = if (spinnerColor.selectedItemPosition > 0) spinnerColor.selectedItem.toString() else null
             val notes = accountNotesInput.text.toString().trim()
 
+            //Error Checking
             if (name.isEmpty()) {
                 accountNameInput.error = "Account needs a name!"
                 accountNameInput.requestFocus(); return@setOnClickListener
@@ -83,7 +84,7 @@ class AddAccount : AppCompatActivity() {
                 accountAmountInput.error = "That doesn't look like a valid number";
                 accountAmountInput.requestFocus(); return@setOnClickListener
             }
-
+                //Static Currency
             val currency = "ZAR"
 
             val newAccount = Account(

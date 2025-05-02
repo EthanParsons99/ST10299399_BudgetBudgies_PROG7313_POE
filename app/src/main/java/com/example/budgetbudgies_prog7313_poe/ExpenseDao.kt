@@ -1,5 +1,6 @@
+// --- START of ExpenseDAO
 package com.example.budgetbudgies_prog7313_poe
-
+//Import
 import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Expense
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,7 @@ interface ExpenseDao {
     fun getUserExpensesInRange(userId: Int, startDate: Date, endDate: Date): Flow<List<Expense>>
 
     @Query("SELECT * FROM expenses WHERE userid = :userId AND date BETWEEN :startDate AND :endDate ORDER BY date DESC")
-    suspend fun getUserExpensesListInRange(userId: Int, startDate: Date, endDate: Date): List<Expense>
+    suspend fun getUserExpensesListInRange(userId: Int, startDate: Date, endDate: Date): List<Expense> // get a list of expenses for user in a set time frame
 
     @Query("SELECT * FROM expenses WHERE userid = :userId ORDER BY date DESC")
     fun getAllUserExpenses(userId: Int): Flow<List<Expense>>
@@ -28,3 +29,4 @@ interface ExpenseDao {
     @Delete
     suspend fun deleteExpense(expense: Expense)
 }
+// _________________________________END OF FILE___________________________________

@@ -1,6 +1,6 @@
 // --- START DbCategoryAdapter.kt ---
 package com.example.budgetbudgies_prog7313_poe
-
+//Imports
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater

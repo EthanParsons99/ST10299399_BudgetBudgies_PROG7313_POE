@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background2">
 
-        <!-- AppBar with Toolbar and Month Navigation -->
+        <!-- Header with back button and month navigation bar -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,7 +25,7 @@
                 app:title="Goals"
                 app:titleTextColor="#000000" />
 
-            <!-- Month Navigation Bar -->
+            <!-- Month Navigation Bar. Same one I used on the Home Page -->
             <LinearLayout
                 android:id="@+id/monthNavSection"
                 android:layout_width="match_parent"
@@ -168,3 +168,4 @@
         android:visibility="gone"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
+    <!-- _________________________________END OF FILE___________________________________  -->

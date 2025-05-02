@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of CategorySpendingAdapter.kt ---
 
+package com.example.budgetbudgies_prog7313_poe
+//Imports
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,3 +59,4 @@ class CategorySpendingAdapter :
         }
     }
 }
+// _________________________________END OF FILE___________________________________

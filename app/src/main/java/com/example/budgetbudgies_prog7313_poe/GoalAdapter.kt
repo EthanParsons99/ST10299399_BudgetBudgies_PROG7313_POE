@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of GoalAdapter.kt ---
 
+package com.example.budgetbudgies_prog7313_poe
+//Imports
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetbudgies_prog7313_poe.databinding.GoalItemBinding
 
 class GoalAdapter : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(DiffCallback()) {
-
+    // Creates a new ViewHolder when necesary
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
         val binding = GoalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GoalViewHolder(binding)
     }
-
+//Binds Data
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -28,9 +30,10 @@ class GoalAdapter : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(DiffCallback()
             binding.tvNotes.text = goal.notes
         }
     }
-
+//Updates list
     class DiffCallback : DiffUtil.ItemCallback<Goal>() {
         override fun areItemsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem.goalid == newItem.goalid
         override fun areContentsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem == newItem
     }
 }
+// _________________________________END OF FILE___________________________________

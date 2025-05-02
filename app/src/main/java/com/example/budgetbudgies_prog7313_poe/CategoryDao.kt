@@ -1,5 +1,8 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START og CategoryActivity ---
 
+
+package com.example.budgetbudgies_prog7313_poe
+// imports
 import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Category // Import your Category entity
 import kotlinx.coroutines.flow.Flow
@@ -31,3 +34,5 @@ interface CategoryDao {
     @Query("SELECT COUNT(*) FROM categories WHERE userid = :userId AND categoryname = :name COLLATE NOCASE")
     suspend fun categoryExists(userId: Int, name: String): Int
 }
+
+// _________________________________END OF FILE___________________________________

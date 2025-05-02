@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+//Start of GoalsActivity.kt
 
+package com.example.budgetbudgies_prog7313_poe
+//Imports
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -65,3 +67,5 @@ class GoalsActivity : AppCompatActivity() {
         binding.monthYearTextView.text = formatter.format(calendar.time)
     }
 }
+
+// _________________________________END OF FILE___________________________________

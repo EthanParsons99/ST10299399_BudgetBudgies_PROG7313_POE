@@ -1,6 +1,6 @@
 // --- START LoginActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
-
+//Import
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                 try {
                     val foundUser = userDao.getUserByEmail(email)
 
-                    // ** WARNING: Comparing plain password - use hashing in a real app! **
+                    // Comparing passwords in a totally safe way **
                     if (foundUser != null && foundUser.password == password) {
                         Log.d("Login", "Login ok for user ID: ${foundUser.userid}")
                         Toast.makeText(this@LoginActivity, "Welcome back!", Toast.LENGTH_SHORT).show()

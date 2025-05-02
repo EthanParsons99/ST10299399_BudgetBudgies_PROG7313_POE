@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of GoalDao.kt ---
 
+package com.example.budgetbudgies_prog7313_poe
+//Importing
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +14,7 @@ interface GoalDao {
     @Update
     suspend fun updateGoal(goal: Goal)
 
-    @Delete
+    @Delete //Deletes a goal
     suspend fun deleteGoal(goal: Goal)
 
     @Query("SELECT * FROM goals WHERE userid = :userId ORDER BY goalname ASC")
@@ -20,7 +22,7 @@ interface GoalDao {
 
     @Query("SELECT * FROM goals WHERE goalid = :goalId LIMIT 1")
     suspend fun getGoalById(goalId: Int): Goal?
-
+//Filters goal by whether it is completed or not
     @Query("SELECT * FROM goals WHERE userid = :userId AND completed = :completed ORDER BY goalname ASC")
     fun getUserGoalsByCompletion(userId: Int, completed: Boolean): Flow<List<Goal>>
 
@@ -35,7 +37,8 @@ interface GoalDao {
 
     @Query("SELECT COUNT(*) FROM goals WHERE userid = :userId AND completed = 1")
     suspend fun getCompletedGoalsCount(userId: Int): Int
-
+//Gets the total number of goals for a user
     @Query("SELECT COUNT(*) FROM goals WHERE userid = :userId")
     suspend fun getTotalGoalsCount(userId: Int): Int
 }
+// _________________________________END OF FILE___________________________________

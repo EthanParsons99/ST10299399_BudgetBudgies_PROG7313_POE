@@ -1,5 +1,6 @@
+// --- START of EditGoalActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
-
+// Imports
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +16,13 @@ class EditGoalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_goals)
+        setContentView(R.layout.edit_goals)  // Set the layout file
 
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }// Back button functionality
 
         dao = AppDatabase.getDatabase(this).goalDao()
         goalId = intent.getIntExtra("GOAL_ID", 0)
-
+// View bindings
         val etName     = findViewById<EditText>(R.id.etName)
         val etNotes    = findViewById<EditText>(R.id.etNotes)
         val etAmt      = findViewById<EditText>(R.id.etAmount)
@@ -64,3 +65,4 @@ class EditGoalActivity : AppCompatActivity() {
         }
     }
 }
+// _________________________________END OF FILE___________________________________

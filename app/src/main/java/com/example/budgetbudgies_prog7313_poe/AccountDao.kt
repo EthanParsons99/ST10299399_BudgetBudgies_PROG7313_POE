@@ -1,9 +1,12 @@
+// --- START AccountDao.kt ---
+
 package com.example.budgetbudgies_prog7313_poe
 
 import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Account
 import kotlinx.coroutines.flow.Flow
 
+//DAO for all account operations
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -19,7 +22,7 @@ interface AccountDao {
     suspend fun getAccountById(accountId: Int): Account?
 
     @Update
-    suspend fun updateAccount(account: Account)
+    suspend fun updateAccount(account: Account)     // Update an existing account
 
     @Delete
     suspend fun deleteAccount(account: Account)
@@ -28,3 +31,5 @@ interface AccountDao {
     suspend fun updateAccountBalance(accountId: Int, newBalance: Double)
 }
 
+
+// _________________________________END OF FILE___________________________________

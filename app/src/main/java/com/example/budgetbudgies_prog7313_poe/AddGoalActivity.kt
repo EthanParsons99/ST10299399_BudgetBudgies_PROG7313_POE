@@ -1,3 +1,5 @@
+// --- START of AddGoalActivity
+
 package com.example.budgetbudgies_prog7313_poe
 
 import android.os.Bundle
@@ -139,10 +141,10 @@ class AddGoalActivity : AppCompatActivity() {
         // Create goal object
         val goal = Goal(
             goalname = name,
-            notes = "",  // No notes as per requirements
+            notes = "",  // No notes as per our requirements
             categoryid = selectedCategoryId,
             target = target ?: 0.0, // Ensure target is non-null, use 0.0 as fallback
-            currency = "ZAR",  // Static currency as per requirements
+            currency = "ZAR",  // Static currency as per our requirements
             userid = userId,
             progress = 0.0,  // Default progress
             completed = false, // Default to not completed
@@ -169,3 +171,5 @@ class AddGoalActivity : AppCompatActivity() {
         }
     }
 }
+
+// _________________________________END OF FILE___________________________________

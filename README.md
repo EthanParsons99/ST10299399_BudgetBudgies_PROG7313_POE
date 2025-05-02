@@ -80,5 +80,11 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Layouts: https://developer.android.com/develop/ui/views/layout/declaring-layout
 - Creating Expense Entry: https://projectgurukul.org/expense-tracker-android-app-source-code/
 - Database Configuration: https://code.nkslearning.com/blogs/a-beginner-guide-to-using-and-setting-up-room-database-in-android-with-java_65745c4ce501fcefe61e
+- Database Help: https://youtu.be/bOd3wO0uFr8?si=Vw6kC3hRLHf40gDu
+- ImageViews: https://stackoverflow.com/questions/15414676/freely-move-imageview-around-page
+- GradientBackground: https://youtu.be/sE0-f9e_aaA?si=Hil4NxJsqlMJtTZv
+- ChatGPT Gradient Help: https://youtu.be/sE0-f9e_aaA?si=Hil4NxJsqlMJtTZv
 - Parcelables: https://medium.com/@calren24/android-parcelables-made-easy-acb742bcf96b
+- IIE Module Manual: Programming 3C/Open Source Coding(Introduction) PROG7313
+- RecyclerViews: https://blog.mindorks.com/android-recyclerview-in-kotlin/
 - ReadME help: https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file

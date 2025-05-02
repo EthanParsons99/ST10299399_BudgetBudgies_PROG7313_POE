@@ -19,7 +19,7 @@ class AddGoalActivity : AppCompatActivity() {
 
     private lateinit var binding: AddGoalsBinding
     private lateinit var db: AppDatabase
-    private var userId: Int = -1 // Initialize with invalid ID
+    private var userId: Int = -1
     private var selectedCategoryId: Int = -1
     private val categories = mutableListOf<Category>()
 
@@ -28,23 +28,21 @@ class AddGoalActivity : AppCompatActivity() {
         binding = AddGoalsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // *** Get userId from SessionManager ***
+        // Get userId from SessionManager
         userId = SessionManager.getUserId(applicationContext)
         if (userId == -1) {
             Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
-            finish() // Go back if not logged in
+            finish()
             return
         }
 
         db = AppDatabase.getDatabase(this)
 
-        // *** Set up the Toolbar ***
-        // Note: Toolbar ID in add_goals.xml is addGoalsToolbar
+        //Toolbar
         setSupportActionBar(binding.addGoalsToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Show back arrow
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false) // Hide default title (using centered TextView)
-        // The centered TextView title ("Add Goal") is in the XML
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // Load categories for the spinner
         loadCategories()
@@ -155,19 +153,18 @@ class AddGoalActivity : AppCompatActivity() {
         }
         // --- End Validation ---
 
-        // If execution reaches here, target is guaranteed to be non-null and positive.
 
         // Create goal object
         val goal = Goal(
             goalname = name,
-            notes = "", // No notes field in this layout
-            categoryid = selectedCategoryId, // Use the ID obtained from selection
-            target = target!!, // <-- FIX: Use non-null assertion (safe after validation)
+            notes = "",
+            categoryid = selectedCategoryId,
+            target = target!!,
             currency = "ZAR", // Static currency
-            userid = userId, // Use the logged-in user's ID
-            progress = 0.0, // Default progress
-            completed = false, // Default to not completed
-            savedAmount = 0.0 // Default savedAmount
+            userid = userId,
+            progress = 0.0,
+            completed = false,
+            savedAmount = 0.0
         )
 
         // Save goal to database
@@ -191,11 +188,11 @@ class AddGoalActivity : AppCompatActivity() {
         }
     }
 
-    // *** Handle Toolbar Back Button Click ***
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                finish() // Close this activity
+                finish()
                 return true
             }
         }

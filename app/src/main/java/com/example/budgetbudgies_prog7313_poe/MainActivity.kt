@@ -32,15 +32,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var categoryDao: CategoryDao
     private lateinit var accountDao: AccountDao
 
+    // User session
     private var currentUserId: Int = -1
     private var currentYear: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var currentMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
 
+    // RecyclerView
     private lateinit var transactionRecyclerView: RecyclerView
+    // Adapter
     private lateinit var transactionAdapter: TransactionAdapter
 
     private val ADD_TRANSACTION_REQUEST_CODE = 123
 
+    // Activity lifecycle methods
+    // onCreate is called when the activity is first created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return
         }
 
+        // Initialize view binding
         binding = ActivityMainWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -66,6 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fetchAndDisplayData()
     }
 
+    // Initialize DAOs
     private fun initializeDatabase() {
         val db = AppDatabase.getDatabase(applicationContext)
         expenseDao = db.expenseDao()
@@ -74,6 +81,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         accountDao = db.accountDao()
     }
 
+    // Set up navigation drawer
     private fun setupNavigationDrawer() {
         setSupportActionBar(binding.navToolbar)
 
@@ -90,11 +98,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navView.setNavigationItemSelectedListener(this)
     }
 
+    // Set up month navigation buttons
     private fun setupMonthNavigation() {
         binding.prevMonthButton.setOnClickListener { navigateMonth(-1) }
         binding.nextMonthButton.setOnClickListener { navigateMonth(1) }
     }
 
+    // Navigate to previous/next month
     private fun navigateMonth(monthDelta: Int) {
         val cal = Calendar.getInstance()
         cal.set(currentYear, currentMonth, 1)
@@ -114,6 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findViewById<ImageButton>(R.id.accountbtn)?.setOnClickListener { startActivity(Intent(this, AccountActivity::class.java)); overridePendingTransition(0, 0) }
     }
 
+    // Set up FAB to add new transaction
     private fun setupFabAddTransaction() {
         binding.fabAddTransaction.setOnClickListener {
             val intent = Intent(this, AddIncome::class.java)
@@ -290,6 +301,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    // Navigate to a placeholder activity
     private fun navigateToPlaceholder(featureName: String) {
         val intent = Intent(this, PlaceholderActivity::class.java)
         intent.putExtra(PlaceholderActivity.EXTRA_FEATURE_NAME, featureName)
@@ -314,4 +326,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 }
 
-// --- END MainActivity.kt (Reverted Base + Integrated Changes) ---
+// --- END MainActivity.kt

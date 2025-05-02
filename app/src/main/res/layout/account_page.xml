@@ -85,7 +85,6 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Add RecyclerView for account list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accountsRecyclerView"
             android:layout_width="match_parent"
@@ -94,10 +93,8 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             tools:listitem="@layout/item_account" />
-        <!-- You need to create item_account.xml layout -->
 
     </LinearLayout>
 
-    <!-- Removed Bottom Navigation Bar -->
 
 </RelativeLayout>

@@ -12,23 +12,25 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import com.example.budgetbudgies_prog7313_poe.AccountDao
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
+
 import kotlinx.coroutines.launch
 
 class AddAccount : AppCompatActivity() {
 
+    // Initialize the dao
     private lateinit var accountDbDao: AccountDao
     private var currentUserId: Int = -1
 
+    // Initialize views
     private val bankNames = listOf("Select Bank", "FNB", "Absa", "Capitec", "Nedbank", "Standard Bank", "TymeBank", "Other")
     private val colorNames = listOf("Select Color", "Default", "Blue", "Green", "Red", "Purple", "Orange", "Grey")
 
+    // Check if user has logged in if not an error message displays
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_account_page)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -43,6 +45,7 @@ class AddAccount : AppCompatActivity() {
 
         accountDbDao = AppDatabase.getDatabase(applicationContext).accountDao()
 
+        // Initialize views
         val accountNameInput = findViewById<EditText>(R.id.accname)
         val accountAmountInput = findViewById<EditText>(R.id.accamount)
         val spinnerIcon = findViewById<Spinner>(R.id.spinnerAccountIcon)
@@ -60,6 +63,7 @@ class AddAccount : AppCompatActivity() {
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerColor.adapter = colorAdapter
 
+        // Add button logic
         addButton.setOnClickListener {
             val name = accountNameInput.text.toString().trim()
             val amountStr = accountAmountInput.text.toString().trim()
@@ -68,6 +72,7 @@ class AddAccount : AppCompatActivity() {
             val selectedColorName = if (spinnerColor.selectedItemPosition > 0) spinnerColor.selectedItem.toString() else null
             val notes = accountNotesInput.text.toString().trim()
 
+            // Validation
             if (name.isEmpty()) {
                 accountNameInput.error = "Account needs a name!"
                 accountNameInput.requestFocus(); return@setOnClickListener
@@ -86,6 +91,7 @@ class AddAccount : AppCompatActivity() {
 
             val currency = "ZAR"
 
+            // Create the new account
             val newAccount = Account(
                 userid = currentUserId,
                 accountname = name,
@@ -96,6 +102,7 @@ class AddAccount : AppCompatActivity() {
                 accountIconName = selectedIconName
             )
 
+            // Save the account to the database
             lifecycleScope.launch {
                 try {
                     val result = accountDbDao.insertAccount(newAccount)
@@ -117,6 +124,7 @@ class AddAccount : AppCompatActivity() {
         cancelButton.setOnClickListener { finish() }
     }
 
+    // Back button logic
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -127,4 +135,3 @@ class AddAccount : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-// --- END AddAccount.kt ---

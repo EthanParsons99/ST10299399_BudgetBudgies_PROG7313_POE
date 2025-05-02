@@ -15,30 +15,30 @@ import java.util.* // Import Locale
 class EditGoalActivity : AppCompatActivity() {
     private lateinit var dao: GoalDao
     private var goalId: Int = -1
-    private var userId: Int = -1 // Added userId
-    private lateinit var existingGoal: Goal // Renamed from 'existing' for clarity
+    private var userId: Int = -1
+    private lateinit var existingGoal: Goal
 
     // Views
     private lateinit var etName: EditText
     private lateinit var etNotes: EditText
-    private lateinit var etTargetAmount: EditText // Renamed from etAmt
-    private lateinit var etSavedAmount: EditText // Renamed from etProgress
-    private lateinit var spCategory: Spinner // Spinner to show category (likely read-only here)
+    private lateinit var etTargetAmount: EditText
+    private lateinit var etSavedAmount: EditText
+    private lateinit var spCategory: Spinner
     private lateinit var spCurrency: Spinner // Currency spinner
     private lateinit var btnSave: Button
-    private lateinit var btnDelete: Button // Added Delete button
+    private lateinit var btnDelete: Button
     private lateinit var progressBar: ProgressBar
     private lateinit var tvProgressText: TextView
-    private lateinit var tvCategoryDisplay: TextView // Added TextView to display category
+    private lateinit var tvCategoryDisplay: TextView
 
 
     private var userCategories: List<Category> = listOf() // To hold categories for display
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_goals) // Use edit_goals.xml
+        setContentView(R.layout.edit_goals)
 
-        // *** Get userId from SessionManager ***
+        // Get userId from SessionManager
         userId = SessionManager.getUserId(applicationContext)
         goalId = intent.getIntExtra("GOAL_ID", -1) // Get goal ID from intent
 
@@ -72,21 +72,18 @@ class EditGoalActivity : AppCompatActivity() {
     private fun findViews() {
         etName = findViewById(R.id.etName)
         etNotes = findViewById(R.id.etNotes)
-        etTargetAmount = findViewById(R.id.etAmount) // Correct ID from edit_goals.xml
-        etSavedAmount = findViewById(R.id.etProgress) // Correct ID from edit_goals.xml
-        spCategory = findViewById(R.id.spinnerCategory) // This spinner might be replaced or disabled
-        tvCategoryDisplay = TextView(this) // Programmatically create or find if added to XML
+        etTargetAmount = findViewById(R.id.etAmount)
+        etSavedAmount = findViewById(R.id.etProgress)
+        spCategory = findViewById(R.id.spinnerCategory)
+        tvCategoryDisplay = TextView(this)
         spCurrency = findViewById(R.id.spinnerCurrency)
-        btnSave = findViewById(R.id.btnSetup) // Correct ID from edit_goals.xml ("Save Changes")
-        btnDelete = findViewById(R.id.btnDelete) // Correct ID from edit_goals.xml
+        btnSave = findViewById(R.id.btnSetup)
+        btnDelete = findViewById(R.id.btnDelete)
         progressBar = findViewById(R.id.progressBar)
         tvProgressText = findViewById(R.id.tvProgressText)
 
-        // Since changing category might be complex (affecting saved amounts?),
-        // let's disable the category spinner for editing for now.
-        // We'll display the category name instead.
+
         spCategory.visibility = View.GONE // Hide the spinner
-        // Add a TextView dynamically or find one if you add it to XML to show category
         val parentLayout = etNotes.parent as? LinearLayout // Get parent layout
         tvCategoryDisplay.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -196,7 +193,6 @@ class EditGoalActivity : AppCompatActivity() {
         val updatedGoal = existingGoal.copy(
             goalname = name,
             notes = notes,
-            // categoryid = existingGoal.categoryid, // Keep original category
             target = target,
             savedAmount = saved,
             currency = currency,
@@ -220,19 +216,7 @@ class EditGoalActivity : AppCompatActivity() {
     }
 
     private fun deleteGoal() {
-        // Optional: Add confirmation dialog here
-        // Example:
-        // AlertDialog.Builder(this)
-        //     .setTitle("Delete Goal")
-        //     .setMessage("Are you sure you want to delete '${existingGoal.goalname}'?")
-        //     .setPositiveButton("Delete") { _, _ ->
-        //         // Proceed with deletion
-        //         performDelete()
-        //     }
-        //     .setNegativeButton("Cancel", null)
-        //     .show()
 
-        // For now, delete directly:
         performDelete()
     }
 
@@ -254,11 +238,10 @@ class EditGoalActivity : AppCompatActivity() {
     }
 
 
-    // *** Handle Toolbar Back Button Click ***
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                finish() // Close this activity
+                finish()
                 return true
             }
         }

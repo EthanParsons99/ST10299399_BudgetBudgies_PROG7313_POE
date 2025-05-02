@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.budgetbudgies_prog7313_poe.User
 
+// --- START UserDao.kt ---
 @Dao
 interface UserDao {
 
@@ -18,3 +19,4 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE userid = :userId LIMIT 1")
     suspend fun getUserById(userId: Int): User?
 }
+// --- END UserDao.kt ---

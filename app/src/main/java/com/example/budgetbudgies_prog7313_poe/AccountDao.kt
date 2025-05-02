@@ -4,6 +4,7 @@ import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Account
 import kotlinx.coroutines.flow.Flow
 
+//Create the queries for the database
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

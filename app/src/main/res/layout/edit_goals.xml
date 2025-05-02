@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background2">
 
-    <!-- AppBar with Toolbar -->
+    <!-- Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -67,7 +67,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Goal status card - NEW ADDITION -->
+            <!-- Goal status card - -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

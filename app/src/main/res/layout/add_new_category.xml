@@ -6,7 +6,7 @@
     android:background="@drawable/gradient_background2"
     android:orientation="vertical">
 
-    <!-- Add Toolbar -->
+    <!--  Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

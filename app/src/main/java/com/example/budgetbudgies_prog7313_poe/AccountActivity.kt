@@ -10,26 +10,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView // Import RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager // Import LayoutManager
-import com.example.budgetbudgies_prog7313_poe.AccountDao
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+//
 class AccountActivity : AppCompatActivity() {
 
+    // Initialize the dao
     private lateinit var accountDbDao: AccountDao
     private var currentUserId: Int = -1
+
+    // Initialize views
     private lateinit var totalBalanceTextView: TextView
     private lateinit var accountsRecyclerView: RecyclerView
-    private lateinit var accountAdapter: AccountAdapter // Use your Account Adapter here
+    private lateinit var accountAdapter: AccountAdapter
 
+    // Check if user has logged in if not an error message displays
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar) // Ensure toolbar ID exists in XML
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -44,18 +48,20 @@ class AccountActivity : AppCompatActivity() {
 
         accountDbDao = AppDatabase.getDatabase(applicationContext).accountDao()
         totalBalanceTextView = findViewById(R.id.totalbalance)
-        accountsRecyclerView = findViewById(R.id.accountsRecyclerView) // Make sure this ID exists in account_page.xml
+        accountsRecyclerView = findViewById(R.id.accountsRecyclerView)
 
+        // Add button logic
         val addAccountBtn = findViewById<Button>(R.id.addAccountbtn)
         addAccountBtn.setOnClickListener {
             val intent = Intent(this, AddAccount::class.java)
-            startActivity(intent) // Use startActivity, no result needed if onResume reloads
+            startActivity(intent)
         }
 
         setupRecyclerView()
         loadAccountsAndBalance()
     }
 
+    // Reload data when returning to the screen
     override fun onResume() {
         super.onResume()
         if (currentUserId != -1) {
@@ -63,6 +69,7 @@ class AccountActivity : AppCompatActivity() {
         }
     }
 
+    // Set up the RecyclerView
     private fun setupRecyclerView() {
         accountAdapter = AccountAdapter { account ->
             // Handle account click here if needed (e.g., navigate to details/edit)
@@ -72,7 +79,7 @@ class AccountActivity : AppCompatActivity() {
         accountsRecyclerView.adapter = accountAdapter
     }
 
-
+    // Load accounts and calculate the total balance
     private fun loadAccountsAndBalance() {
         lifecycleScope.launch {
             try {
@@ -95,6 +102,7 @@ class AccountActivity : AppCompatActivity() {
         }
     }
 
+    // Back button logic
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

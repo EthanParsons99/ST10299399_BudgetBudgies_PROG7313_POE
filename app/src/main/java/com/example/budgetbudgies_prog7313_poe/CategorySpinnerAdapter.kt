@@ -18,14 +18,17 @@ class CategorySpinnerAdapter(
     private val categories: List<Category>
 ) : ArrayAdapter<Category>(context, layoutResource, categories) {
 
+    // Create the view for each item in the spinner
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return createItemView(position, convertView, parent)
     }
 
+    // Create the dropdown view for each item in the spinner
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return createItemView(position, convertView, parent, true)
     }
 
+    // Create a view for a single item in the spinner or dropdown
     private fun createItemView(position: Int, convertView: View?, parent: ViewGroup, isDropDown: Boolean = false): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(
             if (isDropDown) R.layout.item_category_dropdown else R.layout.item_category_spinner,

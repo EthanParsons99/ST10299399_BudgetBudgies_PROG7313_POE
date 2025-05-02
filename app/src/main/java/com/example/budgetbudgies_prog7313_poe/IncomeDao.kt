@@ -6,6 +6,8 @@ import com.example.budgetbudgies_prog7313_poe.Income
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+// --- START IncomeDao.kt ---
+// Sets up all queries for income table
 interface IncomeDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

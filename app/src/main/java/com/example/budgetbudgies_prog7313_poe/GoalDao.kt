@@ -3,6 +3,7 @@ package com.example.budgetbudgies_prog7313_poe
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
+// Declares the Goal table
 @Dao
 interface GoalDao {
 

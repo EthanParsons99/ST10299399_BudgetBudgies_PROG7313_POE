@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background2">
 
-        <!-- AppBar with Toolbar and Month Navigation -->
+        <!--  Toolbar and Month Navigation -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -110,26 +110,7 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
-                </androidx.cardview.widget.CardView><!--
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Show fulfilled goals"/>
-
-                <Switch
-                    android:id="@+id/swShowFulfilled"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"/>
-            </LinearLayout>
--->
+                </androidx.cardview.widget.CardView>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewGoals"
                     android:layout_width="match_parent"

@@ -22,24 +22,15 @@ class CreateGoalActivity : AppCompatActivity() {
         val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
         val btnSaveGoal = findViewById<Button>(R.id.btnSaveGoal)
 
-        // The new views we just added
         val tvCategoryType = findViewById<TextView>(R.id.tvCategoryType)
         val ivCategoryIcon = findViewById<ImageView>(R.id.ivCategoryIcon)
 
-        // We don't have these in the layout yet, so commenting them out
-        // val etNotes = findViewById<EditText>(R.id.etNotes)
-        // val etAmount = findViewById<EditText>(R.id.etAmount)
-        // val etCurrency = findViewById<EditText>(R.id.etCurrency)
 
         btnSaveGoal.setOnClickListener {
             val name = etName.text.toString()
             val target = etTarget.text.toString()
             val category = spinnerCategory.selectedItem?.toString() ?: ""
 
-            // Since we don't have these fields in the layout, we'll skip them
-            // val notes = etNotes.text.toString()
-            // val amount = etAmount.text.toString()
-            // val currency = etCurrency.text.toString()
 
             if (name.isEmpty() || target.isEmpty() || category.isEmpty()) {
                 Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()

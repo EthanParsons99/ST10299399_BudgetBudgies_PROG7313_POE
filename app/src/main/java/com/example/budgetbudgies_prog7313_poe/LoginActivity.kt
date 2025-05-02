@@ -17,11 +17,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
+    // Activity lifecycle methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         val forgotPasswordText = findViewById<TextView>(R.id.textView9)
         val registerText = findViewById<TextView>(R.id.textView10)
 
+        // Set up clickable text
         setupClickableText(forgotPasswordText, "Forgot your password? reset it here", "reset", Color.BLUE) {
             Toast.makeText(this, "Password reset isn't ready yet!", Toast.LENGTH_SHORT).show()
         }
@@ -48,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Set up login button
         loginButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString()
@@ -63,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Check login details
             lifecycleScope.launch {
                 try {
                     val foundUser = userDao.getUserByEmail(email)
@@ -88,6 +91,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Navigate to main activity
     private fun navigateToMain() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -95,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    // Set up clickable text
     private fun setupClickableText(textView: TextView, fullText: String, clickableWord: String, color: Int, onClick: () -> Unit) {
         val spannableString = SpannableString(fullText)
         val start = fullText.indexOf(clickableWord)

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 import java.util.Date
 
+// Declares the Income table
 @Entity(
     tableName = "incomes",
 

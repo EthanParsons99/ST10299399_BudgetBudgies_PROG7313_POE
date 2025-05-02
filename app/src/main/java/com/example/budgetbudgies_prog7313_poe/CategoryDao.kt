@@ -4,6 +4,7 @@ import androidx.room.*
 import com.example.budgetbudgies_prog7313_poe.Category // Import your Category entity
 import kotlinx.coroutines.flow.Flow
 
+// DAO for managing categories in the database
 @Dao
 interface CategoryDao {
 

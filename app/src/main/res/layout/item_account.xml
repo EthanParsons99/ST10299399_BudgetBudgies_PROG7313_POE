@@ -7,10 +7,8 @@
     android:padding="16dp"
     android:gravity="center_vertical"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/white_textbox"> <!-- Or use selectableItemBackground -->
+    android:background="@drawable/white_textbox">
 
-    <!-- Add ImageView for Bank Icon later based on account.accountIconName -->
-    <!-- <ImageView android:id="@+id/account_item_icon" ... /> -->
 
     <TextView
         android:id="@+id/account_item_name"
@@ -20,7 +18,7 @@
         tools:text="FNB Cheque Account"
         android:textSize="16sp"
         android:textColor="?android:attr/textColorPrimary"
-        android:layout_marginStart="16dp"/> <!-- Adjust margin if icon added -->
+        android:layout_marginStart="16dp"/>
 
     <TextView
         android:id="@+id/account_item_balance"

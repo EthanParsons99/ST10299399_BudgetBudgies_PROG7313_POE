@@ -7,20 +7,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetbudgies_prog7313_poe.databinding.GoalItemBinding
 
+// GoalAdapter.kt
 class GoalAdapter : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(DiffCallback()) {
 
+    // ViewHolder class
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
         val binding = GoalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GoalViewHolder(binding)
     }
 
+    // Bind data to ViewHolder
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
+
     inner class GoalViewHolder(private val binding: GoalItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+            // Bind data to ViewHolder
         fun bind(goal: Goal) {
             binding.tvName.text = goal.goalname
             binding.tvTarget.text = "Target: ${goal.target} ${goal.currency}"
@@ -29,6 +34,7 @@ class GoalAdapter : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(DiffCallback()
         }
     }
 
+    // DiffCallback class
     class DiffCallback : DiffUtil.ItemCallback<Goal>() {
         override fun areItemsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem.goalid == newItem.goalid
         override fun areContentsTheSame(oldItem: Goal, newItem: Goal): Boolean = oldItem == newItem

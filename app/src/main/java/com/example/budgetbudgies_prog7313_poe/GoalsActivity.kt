@@ -27,7 +27,7 @@ class GoalsActivity : AppCompatActivity() {
         binding = GoalsPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // *** Get userId from SessionManager ***
+        //  Get userId from SessionManager
         userId = SessionManager.getUserId(applicationContext)
         if (userId == -1) {
             Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
@@ -38,7 +38,7 @@ class GoalsActivity : AppCompatActivity() {
         db = AppDatabase.getDatabase(this)
         adapter = GoalAdapter()
 
-        // *** Set up the Toolbar ***
+        // Set up the Toolbar
         setSupportActionBar(binding.goalsToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // Show back arrow
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -49,7 +49,6 @@ class GoalsActivity : AppCompatActivity() {
 
         binding.btnAddGoal.setOnClickListener {
             startActivity(Intent(this, AddGoalActivity::class.java))
-            // Consider using ActivityResultLauncher if you need to refresh list after adding
         }
 
         // Set initial month/year
@@ -59,15 +58,14 @@ class GoalsActivity : AppCompatActivity() {
         binding.prevMonthButton.setOnClickListener {
             calendar.add(Calendar.MONTH, -1)
             updateMonthYearText()
-            // You might need to reload/filter goals based on the new month if desired
-            // loadGoals() // Call loadGoals again if filtering by month
+
         }
 
+        // Handle prev/next month buttons
         binding.nextMonthButton.setOnClickListener {
             calendar.add(Calendar.MONTH, 1)
             updateMonthYearText()
-            // You might need to reload/filter goals based on the new month if desired
-            // loadGoals() // Call loadGoals again if filtering by month
+
         }
 
         // Load goals
@@ -79,7 +77,6 @@ class GoalsActivity : AppCompatActivity() {
         if (userId == -1) return // Check userId again just in case
 
         lifecycleScope.launch {
-            // Note: getUserGoals currently fetches ALL goals for the user, not filtered by month
             // Adjust DAO query if month filtering is needed for goals
             db.goalDao().getUserGoals(userId).collectLatest { goals ->
                 adapter.submitList(goals)
@@ -92,6 +89,7 @@ class GoalsActivity : AppCompatActivity() {
     }
 
 
+    // Update month/year text
     private fun updateMonthYearText() {
         val formatter = SimpleDateFormat("MMMM, yyyy", Locale.getDefault())
         binding.monthYearTextView.text = formatter.format(calendar.time)

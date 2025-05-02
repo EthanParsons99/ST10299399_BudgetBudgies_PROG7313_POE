@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+// Declares a Room entity for the "goals" table
 @Entity(
     tableName = "goals",
     foreignKeys = [

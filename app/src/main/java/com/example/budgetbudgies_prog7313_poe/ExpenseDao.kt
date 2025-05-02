@@ -5,6 +5,7 @@ import com.example.budgetbudgies_prog7313_poe.Expense
 import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
+// Creates the queries for Expense table
 @Dao
 interface ExpenseDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

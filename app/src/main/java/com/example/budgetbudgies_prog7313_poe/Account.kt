@@ -1,10 +1,10 @@
-// --- START Account.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 
+// --- START Account.kt ---
 @Entity(
     tableName = "accounts",
     foreignKeys = [
@@ -16,16 +16,14 @@ import androidx.room.ForeignKey
         )
     ]
 )
+// Declare Account Entity
 data class Account(
     @PrimaryKey(autoGenerate = true) val accountid: Int = 0,
     val userid: Int,
     val accountname: String,
-    val accounttype: String?, // Optional original type field
+    val accounttype: String?,
     val balance: Double,
     val currency: String,
-    // --- Added Fields ---
-    val accountColor: String?, // Store color name/hex as String
-    val accountIconName: String? // Store bank/icon name as String
-    // --- End Added Fields ---
+    val accountColor: String?,
+    val accountIconName: String?
 )
-// --- END Account.kt ---

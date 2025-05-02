@@ -26,8 +26,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Removed top back button as Toolbar provides Up button -->
-
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />

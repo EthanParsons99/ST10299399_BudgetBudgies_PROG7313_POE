@@ -10,26 +10,29 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.budgetbudgies_prog7313_poe.AppDatabase
-import com.example.budgetbudgies_prog7313_poe.UserDao
 import kotlinx.coroutines.launch
+
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var userDao: UserDao
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_page)
 
+        // Initialize the database
         userDao = AppDatabase.getDatabase(applicationContext).userDao()
 
+        // Initialize views
         val nameEditText = findViewById<EditText>(R.id.editTextName)
         val emailEditText = findViewById<EditText>(R.id.editTextEmail)
         val passwordEditText = findViewById<EditText>(R.id.editTextPassword)
         val termsCheckBox = findViewById<CheckBox>(R.id.cbForTerms)
         val signUpButton = findViewById<Button>(R.id.signUpBtn)
 
+        // Set click listener for the sign up button
         signUpButton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
 
@@ -40,6 +43,7 @@ class SignUpActivity : AppCompatActivity() {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString()
 
+            // Validate input
             if (firstName.isEmpty()) {
                 nameEditText.error = "Name cannot be empty"
                 nameEditText.requestFocus()
@@ -70,6 +74,7 @@ class SignUpActivity : AppCompatActivity() {
                 lastName = lastName
             )
 
+            // Insert user into the database
             lifecycleScope.launch {
                 try {
                     val result = userDao.insert(newUser)

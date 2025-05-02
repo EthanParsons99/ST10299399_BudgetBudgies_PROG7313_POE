@@ -1,26 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/goalsPageRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background2">
 
-        <!-- AppBar with Toolbar -->
+        <!-- AppBar with Toolbar and Month Navigation -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/goalsToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/ic_back_arrow"
                 app:title="Goals"
                 app:titleTextColor="#000000" />
+
+            <!-- Month Navigation Bar -->
+            <LinearLayout
+                android:id="@+id/monthNavSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFEB3B"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/prevMonthButton"
+                    android:layout_width="68dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Previous Month"
+                    android:src="@mipmap/ic_back" />
+
+                <TextView
+                    android:id="@+id/monthYearTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="October, 2024" />
+
+                <ImageButton
+                    android:id="@+id/nextMonthButton"
+                    android:layout_width="68dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Next Month"
+                    android:src="@mipmap/ic_next" />
+            </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <!-- Main Content -->
@@ -36,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Title -->
                 <TextView
                     android:id="@+id/tvGoalsTitle"
                     android:layout_width="wrap_content"
@@ -55,7 +94,6 @@
                     android:layout_marginTop="4dp"
                     android:layout_gravity="center_horizontal"/>
 
-                <!-- Monthly Goal Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardMonthlyGoal"
                     android:layout_width="match_parent"
@@ -72,176 +110,61 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
+                </androidx.cardview.widget.CardView><!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical">
 
-                </androidx.cardview.widget.CardView>
-
-                <!-- Totals Row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="16dp"
-                    android:weightSum="2">
+                    android:text="Show fulfilled goals"/>
 
-                    <!-- Total Saved -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="50dp"
-                        android:padding="8dp"
-                        app:cardElevation="2dp"
-                        android:layout_marginEnd="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="12dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Saved"
-                                android:textSize="12sp"/>
-                            <TextView
-                                android:id="@+id/tvTotalSaved"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="R450"
-                                android:textStyle="bold"
-                                android:textSize="16sp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Fulfilled Goals -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="50dp"
-                        android:padding="8dp"
-                        app:cardElevation="2dp"
-                        android:layout_marginStart="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="12dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:id="@+id/tvFulfilledCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1/2"
-                                android:textStyle="bold"
-                                android:textSize="16sp"/>
-                            <ImageView
-                                android:id="@+id/ivEgg"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_egg"
-                                android:layout_marginStart="8dp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <!-- Show fulfilled switch -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Show fulfilled goals"/>
-
-                    <Switch
-                        android:id="@+id/swShowFulfilled"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"/>
-                </LinearLayout>
-
-                <!-- RecyclerView for goals - PRESERVED FROM ORIGINAL -->
+                <Switch
+                    android:id="@+id/swShowFulfilled"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewGoals"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp" />
 
-                <!-- Additional containers from the reference design -->
-                <LinearLayout
-                    android:id="@+id/activeContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp"/>
-
-                <!-- Fulfilled section -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fulfilled"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginTop="24dp"/>
-
-                <TextView
-                    android:id="@+id/tvFulfilledBonus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+0"
-                    android:layout_marginTop="4dp"/>
+            <LinearLayout
+                android:id="@+id/activeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"/>
 
                 <LinearLayout
-                    android:id="@+id/fulfilledContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                android:id="@+id/failedContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </LinearLayout>
+    </ScrollView>
 
-                <!-- Failed section -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Failed"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginTop="24dp"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Add Goal"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#4AA0F0"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"/>
 
-                <LinearLayout
-                    android:id="@+id/failedContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-            </LinearLayout>
-        </ScrollView>
-
-        <!-- FloatingActionButton replaces the Add Goal button -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAddGoal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Add Goal"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="#4AA0F0"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"/>
-
-        <!-- Hidden RecyclerView for compatibility -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/goalsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/goalsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

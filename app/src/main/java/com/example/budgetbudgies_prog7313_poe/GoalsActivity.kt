@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.budgetbudgies_prog7313_poe.databinding.GoalsPageBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class GoalsActivity : AppCompatActivity() {
 
@@ -15,6 +17,8 @@ class GoalsActivity : AppCompatActivity() {
     private lateinit var adapter: GoalAdapter
     private lateinit var db: AppDatabase
     private val userId = 1
+
+    private val calendar = Calendar.getInstance() // Added calendar instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,21 @@ class GoalsActivity : AppCompatActivity() {
             startActivity(Intent(this, AddGoalActivity::class.java))
         }
 
+        // Set initial month/year
+        updateMonthYearText()
+
+        // Handle prev/next month buttons
+        binding.prevMonthButton.setOnClickListener {
+            calendar.add(Calendar.MONTH, -1)
+            updateMonthYearText()
+        }
+
+        binding.nextMonthButton.setOnClickListener {
+            calendar.add(Calendar.MONTH, 1)
+            updateMonthYearText()
+        }
+
+        // Load goals
         lifecycleScope.launch {
             db.goalDao().getUserGoals(userId).collectLatest { goals ->
                 adapter.submitList(goals)
@@ -39,5 +58,10 @@ class GoalsActivity : AppCompatActivity() {
                 binding.tvMonthlyGoal.text = "R%.2f".format(total)
             }
         }
+    }
+
+    private fun updateMonthYearText() {
+        val formatter = SimpleDateFormat("MMMM, yyyy", Locale.getDefault())
+        binding.monthYearTextView.text = formatter.format(calendar.time)
     }
 }

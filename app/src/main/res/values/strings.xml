@@ -3,5 +3,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="transactions_list_description">List of recent transactions</string>
+    <string name="save_goal">Save Goal</string>
+    <string name="back_button_desc">Back button</string>
+
+
 
 </resources>

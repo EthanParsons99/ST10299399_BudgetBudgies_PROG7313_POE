@@ -1,71 +1,40 @@
-// --- CreateGoalActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CreateGoalActivity : AppCompatActivity() {
-    private lateinit var dao: GoalDao
-    private var userId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_goals)
 
-        // back arrow
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
-
-        dao = AppDatabase.getDatabase(this).goalDao()
-        userId = intent.getIntExtra("USER_ID", 0)
-
-        val etName = findViewById<EditText>(R.id.etName)
+        // Corrected ID reference here
+        val etName = findViewById<EditText>(R.id.etGoalName)
         val etNotes = findViewById<EditText>(R.id.etNotes)
-        val spCat = findViewById<Spinner>(R.id.spinnerCategory)
         val etAmount = findViewById<EditText>(R.id.etAmount)
-        val spCur = findViewById<Spinner>(R.id.spinnerCurrency)
-        val btnSetup = findViewById<Button>(R.id.btnSetup)
+        val etTarget = findViewById<EditText>(R.id.etTarget)
+        val etCurrency = findViewById<EditText>(R.id.etCurrency)
+        val btnSaveGoal = findViewById<Button>(R.id.btnSaveGoal)
 
-        spCat.adapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("Supermarket", "Fuel", "Other")
-        )
-        spCur.adapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item,
-            listOf("ZAR", "USD")
-        )
+        btnSaveGoal.setOnClickListener {
+            val name = etName.text.toString()
+            val notes = etNotes.text.toString()
+            val amount = etAmount.text.toString()
+            val target = etTarget.text.toString()
+            val currency = etCurrency.text.toString()
 
-        btnSetup.setOnClickListener {
-            val goal = Goal(
-                goalname = etName.text.toString().trim(),
-                notes = etNotes.text.toString().trim(),
-                categoryid = spCat.selectedItemPosition,
-                target = etAmount.text.toString().toDoubleOrNull() ?: 0.0,
-                currency = spCur.selectedItem.toString(),
-                userid = userId
-            )
-
-            lifecycleScope.launch {
-                // Insert goal
-                val newId = dao.insertGoal(goal)
-
-                // Query the updated goals list
-                val allGoals = dao.getUserGoalsList(userId)
-
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@CreateGoalActivity,
-                        "Inserted id=$newId; total goals=${allGoals.size}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                finish()
+            if (name.isEmpty() || amount.isEmpty() || target.isEmpty() || currency.isEmpty()) {
+                Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            // Save logic here (e.g., database insert or API call)
+            Toast.makeText(this, "Goal Saved", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }

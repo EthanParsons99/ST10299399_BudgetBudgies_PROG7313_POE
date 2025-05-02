@@ -28,7 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_back_arrow"
-                    android:contentDescription="Back button"
+                    android:contentDescription="@string/back_button_desc"
+
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
                     android:layout_gravity="start"/>
@@ -83,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Notes"
+                    android:inputType="text"
                     android:layout_marginTop="8dp"/>
 
                 <EditText
@@ -113,7 +115,7 @@
                     android:id="@+id/btnSaveGoal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Save Goal"
+                    android:text="@string/save_goal"
                     android:layout_marginTop="24dp"
                     android:backgroundTint="#4AA0F0"/>
             </LinearLayout>

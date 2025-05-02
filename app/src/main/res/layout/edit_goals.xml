@@ -1,81 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/editGoalsPageRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@drawable/gradient_background2">
 
-    <LinearLayout
+    <!-- AppBar with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize">
 
-        <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_gravity="start" />
-
-        <!-- Goal Name -->
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:hint="Goal Name"
-            android:inputType="textPersonName"
-            android:layout_marginTop="16dp" />
-
-        <!-- Notes -->
-        <EditText
-            android:id="@+id/etNotes"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:hint="Notes"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:layout_marginTop="12dp" />
-
-        <!-- Target Amount -->
-        <EditText
-            android:id="@+id/etAmount"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:hint="Target Amount"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="12dp" />
-
-        <!-- Saved Progress -->
-        <EditText
-            android:id="@+id/etProgress"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:hint="Saved Amount (so far)"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="12dp" />
-
-        <!-- Category Spinner -->
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp" />
-
-        <!-- Currency Spinner -->
-        <Spinner
-            android:id="@+id/spinnerCurrency"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp" />
-
-        <!-- Save Button -->
-        <Button
-            android:id="@+id/btnSetup"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/editGoalsToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Goal"
-            android:layout_marginTop="24dp" />
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="match_parent"
+            android:background="#FFEA80"
+            app:titleTextColor="#000000">
+
+            <!-- Back button on left -->
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:contentDescription="Back button"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:layout_gravity="start"/>
+
+            <!-- Centered title -->
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Goal"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_gravity="center"/>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content with your form fields -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Form section title -->
+            <TextView
+                android:id="@+id/tvEditGoalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Your Goal"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Goal status card - NEW ADDITION -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Goal Progress"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="8dp"
+                        android:progressTint="#4AA0F0"/>
+
+                    <TextView
+                        android:id="@+id/tvProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="0% Complete"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Form fields -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Goal Name"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/etNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:weightSum="2">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <EditText
+                        android:id="@+id/etAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Target Amount"
+                        android:inputType="numberDecimal"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <EditText
+                        android:id="@+id/etProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Saved Amount"
+                        android:inputType="numberDecimal"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Category spinner with label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:drawable/btn_dropdown"/>
+
+            <!-- Currency spinner with label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Currency"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/spinnerCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:drawable/btn_dropdown"/>
+
+            <!-- Action buttons -->
+            <Button
+                android:id="@+id/btnSetup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Changes"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#4AA0F0"/>
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Goal"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#FF6B6B"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:textColor="#FF6B6B"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

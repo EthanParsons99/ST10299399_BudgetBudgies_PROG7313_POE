@@ -29,7 +29,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_back_arrow"
                     android:contentDescription="@string/back_button_desc"
-
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
                     android:layout_gravity="start"/>
@@ -60,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Form section title - optional, remove if you want just the toolbar title -->
+                <!-- Form section title -->
                 <TextView
                     android:id="@+id/tvAddGoalTitle"
                     android:layout_width="wrap_content"
@@ -71,7 +70,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="24dp"/>
 
-                <!-- Form fields from your provided code -->
+                <!-- Goal Name -->
                 <EditText
                     android:id="@+id/etGoalName"
                     android:layout_width="match_parent"
@@ -79,38 +78,68 @@
                     android:hint="Goal Name"
                     android:layout_marginTop="8dp"/>
 
-                <EditText
-                    android:id="@+id/etNotes"
+                <!-- Category Dropdown -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Notes"
-                    android:inputType="text"
-                    android:layout_marginTop="8dp"/>
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp">
 
-                <EditText
-                    android:id="@+id/etAmount"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textSize="16sp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:minHeight="48dp"
+                        android:background="@android:drawable/btn_dropdown"/>
+
+                    <!-- Added the new TextView for category type -->
+                    <TextView
+                        android:id="@+id/tvCategoryType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:visibility="gone" />
+
+                    <!-- Added the new ImageView for category icon -->
+                    <ImageView
+                        android:id="@+id/ivCategoryIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="4dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <!-- Target Amount with ZAR static display -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount"
-                    android:inputType="numberDecimal"
-                    android:layout_marginTop="8dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
-                <EditText
-                    android:id="@+id/etTarget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Target"
-                    android:inputType="numberDecimal"
-                    android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ZAR"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="8dp"/>
 
-                <EditText
-                    android:id="@+id/etCurrency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Currency"
-                    android:inputType="text"
-                    android:layout_marginTop="8dp"/>
+                    <EditText
+                        android:id="@+id/etTarget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Target Amount"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
+                <!-- Save Button -->
                 <Button
                     android:id="@+id/btnSaveGoal"
                     android:layout_width="match_parent"

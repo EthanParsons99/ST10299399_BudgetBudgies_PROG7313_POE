@@ -22,16 +22,8 @@
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="#000000">
 
-                <!-- Back button on left -->
-                <ImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/back_button_desc"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_back_arrow" />
+                <!-- Back button on left - REMOVED ImageButton with id btnBack -->
+                <!-- The standard back arrow will be added programmatically -->
 
                 <!-- Centered title -->
                 <TextView
@@ -76,7 +68,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Goal Name"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:inputType="textCapWords" />
+                <!-- Added inputType -->
 
                 <!-- Category Dropdown -->
                 <LinearLayout

@@ -32,8 +32,9 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Device: Pixel 9 Pro API 35
 
 ## Addional Notes
-- Video Link for to see how project works:
-- Some features are still a work in progress {WIP}
+- Youtube video Link has been added in the pdf which is uploaded on ARC
+- GitHub Link is also added in the pdf
+- Some features are still a work in progress {WIP} which need to be implemented in part 3
 - Gamification still needs adding to make the app more entertaining
 - Top Navigation bars back and menu buttons are trickey to click but they do work
 - Camera is able to take photo on emulator but you are not able to open the photo after the transaction was added
@@ -51,7 +52,7 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 
 ## How to run Project
 1. Make sure to have Android Studio installed on your PC and open it
-2. Copy the repository link: https://github.com/EthanParsons99/BudgetBudgies_PROG7313_POE.git 
+2. Copy the repository link
 3. In Android Studio click on "Get from VCS" on the home screen
 4. Or if you have an open project go to File > New > Project from Version Control
 5. Paste the repository link in the URL field
@@ -88,4 +89,4 @@ Budget Budgies is a mobile app to make it easy for users to keep track of their 
 - Parcelables: https://medium.com/@calren24/android-parcelables-made-easy-acb742bcf96b
 - IIE Module Manual: Programming 3C/Open Source Coding(Introduction) PROG7313
 - RecyclerViews: https://blog.mindorks.com/android-recyclerview-in-kotlin/
-- ReadME help: https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file
+- ReadME help: https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file and https://youtu.be/qIaWozjDyPk?si=TfGOWV3QQYPY7U_I

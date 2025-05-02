@@ -1,5 +1,6 @@
+// --- START of IncomeDAO
 package com.example.budgetbudgies_prog7313_poe
-
+//Imports
 import androidx.room.*
 import java.util.Date
 import com.example.budgetbudgies_prog7313_poe.Income
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 // --- START IncomeDao.kt ---
 // Sets up all queries for income table
 interface IncomeDao {
-
+    // Insert the users income
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertIncome(income: Income): Long
 
@@ -30,5 +31,6 @@ interface IncomeDao {
     suspend fun updateIncome(income: Income)
 
     @Delete
-    suspend fun deleteIncome(income: Income)
+    suspend fun deleteIncome(income: Income) //Delete user Income
 }
+// _________________________________END OF FILE___________________________________

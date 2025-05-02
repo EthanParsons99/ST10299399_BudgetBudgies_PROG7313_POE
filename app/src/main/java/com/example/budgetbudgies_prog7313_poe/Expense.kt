@@ -1,3 +1,4 @@
+// --- START of EditGoalActivity.kt ---
 package com.example.budgetbudgies_prog7313_poe
 
 import androidx.room.Entity
@@ -39,3 +40,5 @@ data class Expense(
     val photopath: String?, //For the photo
     val accountid: Int   // Account I.D
 )
+
+// _________________________________END OF FILE___________________________________

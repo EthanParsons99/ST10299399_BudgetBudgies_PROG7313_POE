@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of Income.kt ---
 
+package com.example.budgetbudgies_prog7313_poe
+//Imports
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
@@ -9,7 +11,7 @@ import java.util.Date
 @Entity(
     tableName = "incomes",
 
-    foreignKeys = [
+    foreignKeys = [     //Foreign Keys
         ForeignKey(
             entity = User::class,
             parentColumns = ["userid"],
@@ -39,3 +41,4 @@ data class Income(
     val categoryid: Int,  //collects i.d for the catergory
     val accountid: Int
 )
+// _________________________________END OF FILE___________________________________

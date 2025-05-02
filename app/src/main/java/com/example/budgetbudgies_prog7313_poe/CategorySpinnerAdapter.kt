@@ -1,3 +1,5 @@
+// --- START of CategorySpinnerAdapter.kt ---
+
 package com.example.budgetbudgies_prog7313_poe
 
 import android.content.Context
@@ -55,3 +57,5 @@ class CategorySpinnerAdapter(
         return view
     }
 }
+
+// Update an existing account

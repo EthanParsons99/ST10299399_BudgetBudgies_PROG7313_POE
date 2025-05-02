@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of Goal
 
+package com.example.budgetbudgies_prog7313_poe
+//Import
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -8,7 +10,7 @@ import androidx.room.PrimaryKey
 // Declares a Room entity for the "goals" table
 @Entity(
     tableName = "goals",
-    foreignKeys = [
+    foreignKeys = [     //Establish foreign keys in the table
         ForeignKey(
             entity = Category::class,
             parentColumns = ["categoryid"],
@@ -29,5 +31,6 @@ data class Goal(
     val userid: Int,
     val progress: Double = 0.0,
     val completed: Boolean = false,
-    val savedAmount: Double = 0.0 // <-- Add this here
+    val savedAmount: Double = 0.0 // To-DO: add some more "Doubles" for part 3's functionality
 )
+// _________________________________END OF FILE___________________________________

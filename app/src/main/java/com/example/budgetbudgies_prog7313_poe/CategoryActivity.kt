@@ -1,5 +1,9 @@
+// --- START og CategoryActivity.kt
+
 package com.example.budgetbudgies_prog7313_poe
 
+
+//Imports
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -140,3 +144,4 @@ class CategoryActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+// _________________________________END OF FILE___________________________________

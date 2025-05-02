@@ -1,5 +1,7 @@
-package com.example.budgetbudgies_prog7313_poe
+// --- START of Convert
 
+package com.example.budgetbudgies_prog7313_poe
+//IMPORTS
 import androidx.room.TypeConverter
 import java.util.Date
 
@@ -17,3 +19,4 @@ class Convert {
 
     }
 }
+// _________________________________END OF FILE___________________________________

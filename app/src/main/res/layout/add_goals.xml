@@ -1,55 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data />
-    <ScrollView
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/addGoalsPageRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:background="@drawable/gradient_background2">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!-- AppBar with Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize">
 
-            <EditText
-                android:id="@+id/etGoalName"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/addGoalsToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Goal Name"/>
+                android:layout_height="match_parent"
+                android:background="#FFEA80"
+                app:titleTextColor="#000000">
 
-            <EditText
-                android:id="@+id/etNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Notes"/>
+                <!-- Back button on left -->
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_arrow"
+                    android:contentDescription="Back button"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:layout_gravity="start"/>
 
-            <EditText
-                android:id="@+id/etAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Amount"
-                android:inputType="numberDecimal"/>
+                <!-- Centered title -->
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Goal"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"/>
 
-            <EditText
-                android:id="@+id/etTarget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Target"
-                android:inputType="numberDecimal"/>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <EditText
-                android:id="@+id/etCurrency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Currency"
-                android:inputType="text"/>
+        <!-- Content with your form fields -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <Button
-                android:id="@+id/btnSaveGoal"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save Goal"
-                android:layout_marginTop="16dp"/>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content">
+
+                <!-- Form section title - optional, remove if you want just the toolbar title -->
+                <TextView
+                    android:id="@+id/tvAddGoalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create New Goal"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Form fields from your provided code -->
+                <EditText
+                    android:id="@+id/etGoalName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Goal Name"
+                    android:layout_marginTop="8dp"/>
+
+                <EditText
+                    android:id="@+id/etNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes"
+                    android:layout_marginTop="8dp"/>
+
+                <EditText
+                    android:id="@+id/etAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Amount"
+                    android:inputType="numberDecimal"
+                    android:layout_marginTop="8dp"/>
+
+                <EditText
+                    android:id="@+id/etTarget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Target"
+                    android:inputType="numberDecimal"
+                    android:layout_marginTop="8dp"/>
+
+                <EditText
+                    android:id="@+id/etCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Currency"
+                    android:inputType="text"
+                    android:layout_marginTop="8dp"/>
+
+                <Button
+                    android:id="@+id/btnSaveGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save Goal"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#4AA0F0"/>
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

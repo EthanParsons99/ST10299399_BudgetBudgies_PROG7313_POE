@@ -25,6 +25,7 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var recyclerViewIncome: RecyclerView
     private lateinit var recyclerViewExpense: RecyclerView
 
+    // Launcher for AddCategory activity, expecting a result
     private val addCategoryLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -37,12 +38,14 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.category_page)
 
+        // Set up toolbar with back button
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Manage Categories"
 
+        // Ensure user is logged in
         currentUserId = SessionManager.getUserId(applicationContext)
         if (currentUserId == -1) {
             Toast.makeText(this, "Error: Not logged in.", Toast.LENGTH_LONG).show()
@@ -52,6 +55,7 @@ class CategoryActivity : AppCompatActivity() {
 
         categoryDbDao = AppDatabase.getDatabase(applicationContext).categoryDao()
 
+        // Bind UI elements
         val addCategoryBtn = findViewById<Button>(R.id.btn_add_category)
         recyclerViewIncome = findViewById(R.id.recyclerViewIncome)
         recyclerViewExpense = findViewById(R.id.recyclerViewExpense)
@@ -60,12 +64,14 @@ class CategoryActivity : AppCompatActivity() {
         insertDefaultCategoriesIfEmpty()
         observeCategories()
 
+        // Launch AddCategory activity on button click
         addCategoryBtn.setOnClickListener {
             val intent = Intent(this, AddCategory::class.java)
             addCategoryLauncher.launch(intent)
         }
     }
 
+    // Insert some default categories if none exist for the user
     private fun insertDefaultCategoriesIfEmpty() {
         lifecycleScope.launch {
             val existingCategories = categoryDbDao.getUserCategoriesOnce(currentUserId)
@@ -84,6 +90,7 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    // Set up RecyclerViews for Income and Expense categories
     private fun setupRecyclerViews() {
         incomeAdapter = DbCategoryAdapter { categoryToDelete -> deleteCategory(categoryToDelete) }
         recyclerViewIncome.layoutManager = LinearLayoutManager(this)
@@ -94,6 +101,7 @@ class CategoryActivity : AppCompatActivity() {
         recyclerViewExpense.adapter = expenseAdapter
     }
 
+    // Observe the categories in the database and update the UI accordingly
     private fun observeCategories() {
         lifecycleScope.launch {
             categoryDbDao.getUserCategories(currentUserId).collectLatest { categories ->
@@ -108,6 +116,7 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    // Delete the selected category from the database
     private fun deleteCategory(category: Category) {
         lifecycleScope.launch {
             try {
@@ -120,6 +129,7 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    // Handle toolbar back button
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Declare camera feature is used, but not strictly required -->
+    <!-- Declare camera feature -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -39,6 +39,8 @@
         <activity android:name=".AddIncome" android:exported="false" />
         <activity android:name=".AddCategory" android:exported="false" />
         <activity android:name=".CategoryActivity" android:exported="false" />
+        <activity android:name=".MonthlySummaryActivity" />
+
 
         <!-- Correct Goal Activities -->
         <activity android:name=".GoalsActivity" android:exported="false" /> <!-- Main Goals display -->
@@ -54,7 +56,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-            <!-- Ensure res/xml/provider_paths.xml exists -->
+
         </provider>
         <!-- End FileProvider -->
 
